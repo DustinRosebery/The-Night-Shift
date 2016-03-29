@@ -7,7 +7,6 @@ import java.io.Serializable;
  */
 public class Character implements Serializable{
 	
-	// comment to test push/pull
 	private static final long serialVersionUID = 1l; // required for serialization
 	
 	private String name;
