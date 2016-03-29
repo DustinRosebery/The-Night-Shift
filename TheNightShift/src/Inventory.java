@@ -51,5 +51,36 @@ public class Inventory implements Serializable{
 		return count;
 	}
 	
+	/**
+	 * Calculates total value of all items currently in the players inventory
+	 */
+	public void calcValue(){
+	
+		if (myList.isEmpty() != true){
+			
+			int index = 0;
+			totalValue = 0;
+			while (myList.get(index) != null){
+				totalValue = totalValue + myList.get(index).getValue();
+				index++;
+			}
+		}
+	}
+	
+	/**
+	 * Calculates total weight of items in current inventory
+	 */
+	public void calcWeight(){
+		
+		if (myList.isEmpty() != true){
+			
+			int index = 0;
+			totalWeight = 0;
+			while (myList.get(index) != null){
+				totalWeight = totalWeight + myList.get(index).getWeight();
+				index++;
+			}
+		}
+	}
 
 }
