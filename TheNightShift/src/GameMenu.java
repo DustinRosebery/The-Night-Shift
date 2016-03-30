@@ -20,8 +20,7 @@ abstract class GameMenu {
 	 * testing set to false will run GameMenu normally
 	 */
 	private static boolean enableTesting = true; 		
-	private static final String REGEX_TEST = "Hello There"; 
-	
+	private static final String REGEX_TEST = "open drawer|look in drawers|look in drawer|search drawers"; 
 	
 	
 	/**
@@ -52,12 +51,45 @@ abstract class GameMenu {
 					 "\nWalk Away?" +
 					 "\n--------------------------");
 			
+			String startCatch = "lets roll|Let's Roll|start|play|lets go";			// Strings you think users might input for the menu options
+			String tutCatch = "huh?|huh|Huh?|Huh|what?|What?|what|What";
+			String quitCatch = "walk away|Walk Away|Walk away|exit|main menu|quit";
+			
+			Pattern startPatt = Pattern.compile(startCatch);						// Regex pattern objects
+			Pattern tutPatt = Pattern.compile(tutCatch);
+			Pattern quitPatt = Pattern.compile(quitCatch);
+			
+			Scanner scan = new Scanner(System.in);
+			String input = scan.nextLine();
+			
+			Matcher startMatch = startPatt.matcher(input);							// Regex Matcher objects
+			Matcher tutMatch = tutPatt.matcher(input);
+			Matcher quitMatch = quitPatt.matcher(input);
+			
+			if (startMatch.find()){
+				System.out.println("Starting Game!!");
+				System.out.println("Just Kidding, game not implemented");
+				Main.mainMenu();
+			}
+			else if (tutMatch.find()){
+				System.out.println("Starting Tutorial!!");
+				System.out.println("Steal stuff");
+				Main.mainMenu();
+			}
+			else if (quitMatch.find()){
+				System.out.println("Exiting to main menu");
+				Main.mainMenu();
+			}
+			else{
+				System.out.println("What was that?");
+				start();
+			}
 		} // end enableTesting else statement
 	} // end start
 	
 	
 	/**
-	 * Method for testing regex commands. loops until quit is input
+	 * Method for testing regex commands. loops until "quit" is input
 	 */
 	public static void regexTesting(){
 		
