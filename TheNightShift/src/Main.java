@@ -7,6 +7,10 @@ import java.util.Scanner;
  */
 public class Main {
 
+	/**
+	 * populates ItemList -- Loads LeaderBoard info -- runs Main menu
+	 * @param args
+	 */
 	public static void main(String[] args){
 		
 		System.out.println("\nWelcome to TheNightShift" +
@@ -18,6 +22,9 @@ public class Main {
 		
 	}
 	
+	/**
+	 * System out of menu options
+	 */
 	public static void printMenu(){
 		System.out.println("\n\n\tMain Menu" +
 						   "\n**************************" +
@@ -28,6 +35,9 @@ public class Main {
 						   "\n5. quit");
 	}
 	
+	/**
+	 * Displays Main Menu options and detects input
+	 */
 	public static void mainMenu(){ 
 		printMenu();
 		String choice = "";
@@ -41,6 +51,9 @@ public class Main {
 		
 		switch (choice) {
 		
+		/**
+		 * Sets the players new characters default stats and saves it to file -- branch to GameMenu
+		 */
 		case ("1") : 	// create a new character		
 			System.out.println("Enter your characters name\t");
 			name = scan.next();
@@ -56,13 +69,13 @@ public class Main {
 				System.out.println( "\n**************************"
 									+ "\n" + name + " created and saved!" 
 									+ "\n**************************");
-				printCharacter(myChar);
 				GameMenu.start();
 			}
 			
-			
-			
-		case ("2") :	// load a character
+		/**
+		 * Loads a character by input name -- branches to GameMenu
+		 */
+		case ("2") :	// load character
 			System.out.println("Which character would you like to play?");
 			name = scan.next();
 			myChar = Saves.readChar(name);
@@ -75,17 +88,24 @@ public class Main {
 				System.out.println( "\n**************************"
 									+ "\n" + name + " loaded successfully!" 
 									+ "\n**************************");
-				printCharacter(myChar);
 				GameMenu.start();
 			}
 			
-			
+		/**
+		 * displays LeaderBoard Standings -- not implemented
+		 */
 		case ("3") :	// View leaderboard
 			System.out.println("\nLeaderBoard not yet implemented\n");
 		
+		/**
+		 * exits the program
+		 */
 		case ("5") :	// quit program
 			break;
 			
+		/**
+		 * invalid input -- branch mainMenu
+		 */
 		default :	// check for valid input
 			System.out.println("please enter the number of your choice.");
 			mainMenu();
@@ -94,6 +114,10 @@ public class Main {
 		scan.close();
 	}// end mainMenu
 	
+	/**
+	 * Displays Character attributes
+	 * @param myChar object to display
+	 */
 	public static void printCharacter(Character myChar){
 		
 		System.out.println("\nCharacter Information." +
@@ -111,6 +135,10 @@ public class Main {
 		printInv(myChar);
 	}
 	
+	/**
+	 * displays character inventory -- not fully implemented
+	 * @param myChar object.inventory() to display
+	 */
 	public static void printInv(Character myChar){
 		
 	
