@@ -9,6 +9,7 @@ import java.util.ArrayList;
  */
 public class LeaderBoard implements Serializable {
 	
+	private static final long serialVersionUID = 1l;
 	private static ArrayList<LeaderBoard> savedScores = new ArrayList<LeaderBoard>(); 
 	
 	private String charName;

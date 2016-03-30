@@ -57,7 +57,7 @@ public class Main {
 									+ "\n" + name + " created and saved!" 
 									+ "\n**************************");
 				printCharacter(myChar);
-				mainMenu();
+				GameMenu.start();
 			}
 			
 			
@@ -76,7 +76,7 @@ public class Main {
 									+ "\n" + name + " loaded successfully!" 
 									+ "\n**************************");
 				printCharacter(myChar);
-				mainMenu();
+				GameMenu.start();
 			}
 			
 			
@@ -118,5 +118,6 @@ public class Main {
 			System.out.println("No Items in inventory");
 		}
 	}
+	
 
 } // end of main

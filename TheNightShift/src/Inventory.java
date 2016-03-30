@@ -34,19 +34,27 @@ public class Inventory implements Serializable{
 	}
 	
 	/**
-	 * returns an item in the players inventory
+	 * Gets inventory item at index
 	 * @param index
-	 * @return
+	 * @return item
 	 */
 	public Items getItem(int index){
 		
 		return myList.get(index);
 	}
 	
+	/**
+	 * removes an item from player inventory
+	 * @param item
+	 */
 	public void delete(Items item){
 		myList.remove(item);
 	}
 	
+	/**
+	 * returns current inventory item count
+	 * @return count
+	 */
 	public int getCount(){
 		return count;
 	}

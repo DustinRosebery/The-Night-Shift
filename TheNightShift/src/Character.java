@@ -63,16 +63,21 @@ public class Character implements Serializable{
 		return name;
 	}
 	/**
-	 * returns characters inventory object
+	 * returns characters Inventory object
 	 * @return inventory
 	 */
 	public Inventory inventory(){
 		return myInv;
 	}
-	
+	/**
+	 * returns characters LeaderBoard object 
+	 * @return
+	 */
 	public LeaderBoard score(){
 		return myScore;
 	}
+	
+	
 	/**
 	 * getter method
 	 * @return strength
