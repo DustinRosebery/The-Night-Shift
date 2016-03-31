@@ -19,16 +19,12 @@ abstract class GameMenu {
 	 * 
 	 * testing set to false will run GameMenu normally
 	 */
-	private static boolean enableTesting = true; 		
-	private static final String REGEX_TEST = "open drawer|look in drawers|look in drawer|search drawers"; 
-	
+	private static boolean enableTesting = false; 		
+	private static final String REGEX_TEST = ""; 
 	
 	/**
-	 * These patterns 
+	 * start simply displays GameMenu choices and directs input... Or tests regex commands if enableTesting = true
 	 */
-	private static String playPattern;
-	
-	
 	public static void start(){
 		
 		if (enableTesting){
@@ -51,13 +47,13 @@ abstract class GameMenu {
 					 "\nWalk Away?" +
 					 "\n--------------------------");
 			
-			String startCatch = "lets roll|Let's Roll|start|play|lets go";			// Strings you think users might input for the menu options
-			String tutCatch = "huh?|huh|Huh?|Huh|what?|What?|what|What";
-			String quitCatch = "walk away|Walk Away|Walk away|exit|main menu|quit";
+			String startCatch = "let(.)?s (go|roll|start|play)+";			// Strings you think users might input for the menu options
+			String tutCatch = "(huh)|(what)|(help)|(tutorial)";
+			String quitCatch = "(walk away)|main menu|quit";
 			
-			Pattern startPatt = Pattern.compile(startCatch);						// Regex pattern objects
-			Pattern tutPatt = Pattern.compile(tutCatch);
-			Pattern quitPatt = Pattern.compile(quitCatch);
+			Pattern startPatt = Pattern.compile(startCatch, Pattern.CASE_INSENSITIVE);				// Regex pattern objects
+			Pattern tutPatt = Pattern.compile(tutCatch, Pattern.CASE_INSENSITIVE);
+			Pattern quitPatt = Pattern.compile(quitCatch, Pattern.CASE_INSENSITIVE);
 			
 			Scanner scan = new Scanner(System.in);
 			String input = scan.nextLine();
@@ -68,7 +64,7 @@ abstract class GameMenu {
 			
 			if (startMatch.find()){
 				System.out.println("Starting Game!!");
-				System.out.println("Just Kidding, game not implemented");
+				System.out.println("Just Kidding, game not implemented");	
 				Main.mainMenu();
 			}
 			else if (tutMatch.find()){
@@ -93,17 +89,15 @@ abstract class GameMenu {
 	 */
 	public static void regexTesting(){
 		
-		boolean found = false;
-		
 		System.out.println( "\nRegex Testing" +
 							"\n**************************");
 		
 		Scanner scan = new Scanner(System.in);
-		Pattern testPatt = Pattern.compile(REGEX_TEST);	// pattern object, REGEX_TEST defined at top of class
+		Pattern testPatt = Pattern.compile(REGEX_TEST, Pattern.CASE_INSENSITIVE);	// pattern object, REGEX_TEST defined at top of class
 			
 		String line = scan.nextLine();
 		
-		if (line.compareTo("quit") == 0){	// end test
+		if (line.compareTo("quit") == 0){	// end test -- branch to MainMenu
 			Main.printMenu();
 		}
 		
