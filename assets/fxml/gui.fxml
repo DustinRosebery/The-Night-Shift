@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+
+<BorderPane prefHeight="750.0" prefWidth="1000.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="Controller">
+  <bottom>
+    <VBox prefHeight="125.0" prefWidth="-1.0">
+      <children>
+        <TextArea fx:id="historyField" editable="false" prefHeight="100.0" prefWidth="-1.0" promptText="" text="Command History&#10;" wrapText="true" />
+        <TextField fx:id="commandField" prefHeight="25.0" prefWidth="-1.0" promptText="Command" text="" />
+      </children>
+      <BorderPane.margin>
+        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" fx:id="x1" />
+      </BorderPane.margin>
+    </VBox>
+  </bottom>
+  <center>
+    <TextArea fx:id="descriptionField" editable="false" prefWidth="200.0" text="Room Description" wrapText="true" BorderPane.margin="$x1" />
+  </center>
+  <left>
+    <TextArea fx:id="itemsField" editable="false" prefWidth="200.0" text="Items" wrapText="true" BorderPane.margin="$x1" />
+  </left>
+  <right>
+    <VBox prefHeight="-1.0" prefWidth="220.0">
+      <children>
+        <TextArea fx:id="statsField" editable="false" prefWidth="-1.0" text="Stats" wrapText="true" VBox.margin="$x1" VBox.vgrow="SOMETIMES" />
+        <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" VBox.margin="$x1" />
+      </children>
+    </VBox>
+  </right>
+</BorderPane>
