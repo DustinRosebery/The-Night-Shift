@@ -5,7 +5,7 @@
 <?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
 
-<BorderPane prefHeight="750.0" prefWidth="1000.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="Controller">
+<BorderPane fx:id="mainPane" prefHeight="750.0" prefWidth="1000.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="MainController">
   <bottom>
     <VBox prefHeight="125.0" prefWidth="-1.0">
       <children>
@@ -27,7 +27,7 @@
     <VBox prefHeight="-1.0" prefWidth="220.0">
       <children>
         <TextArea fx:id="statsField" editable="false" prefWidth="-1.0" text="Stats" wrapText="true" VBox.margin="$x1" VBox.vgrow="SOMETIMES" />
-        <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" VBox.margin="$x1" />
+        <ImageView fx:id="diceView" fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" VBox.margin="$x1" />
       </children>
     </VBox>
   </right>

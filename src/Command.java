@@ -1,12 +1,11 @@
 
 /**
- * Execute action when condition is met based on given input
+ * Execute action based on a given input
  * @author Connor Nelson
  */
 
-interface Command {
+public interface Command {
 
-    boolean condition(String input);
-    void execute();
+    void execute(Object input);
 
 }

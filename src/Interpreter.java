@@ -22,10 +22,9 @@ public class Interpreter {
      * Iterates through all commands and executes those in which the condition is met
      * @param input Input for the command to match against
      */
-    public void interpret(String input) {
+    public void interpret(Object input) {
         for (Command cmd : commands)
-            if (cmd.condition(input))
-                cmd.execute();
+            cmd.execute(input);
     }
 
     /**
