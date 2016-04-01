@@ -1,3 +1,23 @@
+Feature Backlog:
+
+- Develop Story / Game Rules
+- Creative tutorial
+
+- Character and Inventory 
+      - implement Character persistance 
+- High-Scores / leaderboard
+      - implement leaderboard persistance
+- Illustrate / develop / Integrate GUI
+- Design and implement individual rooms
+      - Unique instances in each room to roll vs skill to find,avoid,escape,succeed 
+- Random Dice generator class for skill checks
+- Create Item list / weight system
+- Experience system / point allocation
+- Processing of variable user input
+
+- Consider and Design JUnit tests
+- Create JDocs / Instruction documentation
+
 As a player, I want to be able to challenge other players.
 
 As a player, I want to be able to choose which room I want to start playing in.
@@ -19,4 +39,9 @@ As a player, I want the there to be five rooms to explore with plenty of items t
 As a player, I want to be able to level my skills.
 
 As a player, I want to be able to see the help menu.
+
+
+
+
+
 
