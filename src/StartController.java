@@ -22,7 +22,7 @@ public class StartController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         createButton.setOnAction(event -> {
-            // TODO
+           // createCharacter();
             Stage stage = (Stage) startPane.getScene().getWindow();
             stage.close();
         });
@@ -34,4 +34,5 @@ public class StartController implements Initializable {
             stage.close();
         });
     }
+
 }

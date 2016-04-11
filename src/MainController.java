@@ -80,6 +80,11 @@ public class MainController implements Initializable {
                 timeline.pause();
         });
 
+        Rooms.initRooms();
+        System.out.println("\nWelcome to the Night Shift" +
+                "\n--------------------------");
+        descriptionField.appendText(Rooms.gameMap.getFirst().description);
+
     }
 
     /**
@@ -101,5 +106,6 @@ public class MainController implements Initializable {
             }
         });
     }
+
 
 }

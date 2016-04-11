@@ -11,16 +11,18 @@ public class Main {
 	 * populates ItemList -- Loads LeaderBoard info -- runs Main menu
 	 * @param args
 	 */
-	public static void main(String[] args){
+	/*public static void main(String[] args){
 		
 		System.out.println("\nWelcome to TheNightShift" +
 						   "\n--------------------------");
 		Items.populate();
 		Saves.readScores();
 		mainMenu();
+
+		MainGUI controller = new MainGUI();
+
 		
-		
-	}
+	}*/
 	
 	/**
 	 * System out of menu options
