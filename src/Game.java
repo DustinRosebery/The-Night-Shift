@@ -4,9 +4,12 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.layout.Pane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
+
+import java.io.IOException;
 
 /**
  * Sets up the JavaFX 'stage'
@@ -14,11 +17,17 @@ import javafx.stage.WindowEvent;
  * @author Connor Nelson
  */
 
-public class MainGUI extends Application {
+public class Game extends Application {
+
+    private Character character;
+    private static MainController controller;
 
     @Override
     public void start(Stage primaryStage) throws Exception{
-        Parent root = FXMLLoader.load(getClass().getResource("/fxml/main.fxml"));
+        FXMLLoader loader = new FXMLLoader();
+        Parent root = loader.load(getClass().getResource("/fxml/main.fxml").openStream());
+        controller = (MainController) loader.getController();
+
         primaryStage.setTitle("The NightShift");
         primaryStage.setResizable(false);
         primaryStage.setScene(new Scene(root, 1000, 750));
@@ -31,17 +40,19 @@ public class MainGUI extends Application {
         startStage.setResizable(false);
         startStage.initModality(Modality.APPLICATION_MODAL);
         startStage.setScene(new Scene(startRoot, 250, 250));
-        startStage.setOnCloseRequest(new EventHandler<WindowEvent>() {
-            @Override
-            public void handle(WindowEvent event) {
-                primaryStage.close();
-            }
+        startStage.setOnCloseRequest(event -> {
+            primaryStage.close();
         });
-        startStage.showAndWait();
+        startStage.show();
     }
 
+    // TODO: This seems "bad" -- it technically gives god powers to EVERY class to make UI Changes, which is a poor design
+    // TODO: Think of a better design pattern
+    public static MainController getController() {
+        return controller;
+    }
 
-    public static void main(String[] args) {
+    public static void main(String... args) {
         launch(args);
     }
 }
