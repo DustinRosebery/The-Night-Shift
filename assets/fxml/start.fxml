@@ -13,7 +13,6 @@
     </Button>
     <Button fx:id="loadButton" mnemonicParsing="false" prefWidth="230.0" text="Load Saved Character" VBox.margin="$x1" />
     <Button fx:id="leaderboardButon" mnemonicParsing="false" prefWidth="230.0" text="View Leaderboard" VBox.margin="$x1" />
-    <Button fx:id="helpButton" mnemonicParsing="false" prefWidth="230.0" text="Show Help Menu" VBox.margin="$x1" />
     <Button fx:id="quitButton" mnemonicParsing="false" prefWidth="230.0" text="Quit" VBox.margin="$x1" />
   </children>
 </VBox>

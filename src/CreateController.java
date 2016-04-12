@@ -18,7 +18,7 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 /**
- * Controls the interaction between the new character menu and the game
+ * Controls the interaction between the create character menu and the game
  * @author Connor Nelson
  */
 public class CreateController implements Initializable {
@@ -37,25 +37,19 @@ public class CreateController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        ChangeListener<String> numericListener = new ChangeListener<String>() {
-            @Override
-            public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
-                TextField field = (TextField) ((ReadOnlyProperty) observable).getBean();
-                if (!newValue.matches("\\d{0,2}")) {
-                    field.setText(oldValue);
-                }
+        ChangeListener<String> numericListener = (observable, oldValue, newValue) -> {
+            TextField field = (TextField) ((ReadOnlyProperty) observable).getBean();
+            if (!newValue.matches("\\d{0,2}")) {
+                field.setText(oldValue);
             }
         };
 
-        ChangeListener<Boolean> focusListener = new ChangeListener<Boolean>() {
-            @Override
-            public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) {
-                TextField field = (TextField) ((ReadOnlyProperty) observable).getBean();
-                if (!newValue) {
-                    field.setText(field.getText().replaceFirst("^0+", ""));
-                    if (field.getText().isEmpty())
-                        field.setText("0");
-                }
+        ChangeListener<Boolean> focusListener = (observable, oldValue, newValue) -> {
+            TextField field = (TextField) ((ReadOnlyProperty) observable).getBean();
+            if (!newValue) {
+                field.setText(field.getText().replaceFirst("^0+", ""));
+                if (field.getText().isEmpty())
+                    field.setText("0");
             }
         };
 
@@ -97,8 +91,8 @@ public class CreateController implements Initializable {
                 Stage createStage = (Stage) createPane.getScene().getWindow();
                 createStage.close();
 
-                Game.getController().write(character.name() + " has been created.");
                 Game.getController().updateCharacter(character);
+                Game.getController().write(character.name() + " has been created.");
             }
         });
     }

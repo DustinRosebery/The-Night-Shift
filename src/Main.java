@@ -1,3 +1,4 @@
+import java.io.IOException;
 import java.util.Scanner;
 
 /**
@@ -40,14 +41,14 @@ public class Main {
 	/**
 	 * Displays Main Menu options and detects input
 	 */
-	public static void mainMenu(){ 
+	public static void mainMenu() {
 		printMenu();
 		String choice = "";
 		String name;
 		
 		System.out.println("\n\nWhat would you like to do?\t");
 		Scanner scan = new Scanner(System.in);
-		Character myChar;
+		Character myChar = null;
 		
 		choice = scan.next();
 		
@@ -66,7 +67,11 @@ public class Main {
 			}
 			else{
 				myChar = new Character(name);
-				Saves.writeChar(myChar);
+				try {
+					Saves.writeCharacter(myChar);
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
 				LeaderBoard.addScore(myChar.score());
 				System.out.println( "\n**************************"
 									+ "\n" + name + " created and saved!" 
@@ -80,8 +85,12 @@ public class Main {
 		case ("2") :	// load character
 			System.out.println("Which character would you like to play?");
 			name = scan.next();
-			myChar = Saves.readChar(name);
-			
+			try {
+				myChar = Saves.readCharacter(name);
+			} catch (IOException | ClassNotFoundException e) {
+				e.printStackTrace();
+			}
+
 			if (myChar.name() == ""){
 				System.out.println(name + " was not found");
 				mainMenu();

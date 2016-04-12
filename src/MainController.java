@@ -12,12 +12,13 @@ import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 /**
- * Controls the interaction between the Main GUI and the Game
+ * Controls the interaction between the main GUI and the game
  * @author Connor Nelson
  */
 
@@ -48,6 +49,8 @@ public class MainController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        character = null;
+
         initializeInterpreter();
         initializeDice();
 
@@ -65,7 +68,7 @@ public class MainController implements Initializable {
         });
 
 
-        // Testing commands; TODO: Remove later
+        // Testing commands; TODO: Remove later, just to test roll function
         interpreter.offer(input -> {
             boolean handled;
             if (handled = input.toString().equalsIgnoreCase("roll")) {
@@ -81,6 +84,14 @@ public class MainController implements Initializable {
      */
     public void write(String message) {
         historyField.appendText("\n\n" + message);
+    }
+
+    /**
+     * @param enabled Whether or not the commandline is enabled
+     */
+    public void setCommandlineEnabled(boolean enabled) {
+        commandsAllowed = enabled;
+        commandField.setEditable(enabled);
     }
 
     /**
@@ -107,9 +118,8 @@ public class MainController implements Initializable {
      * @return A random number (3-18) from rolling the dice
      */
     public int rollDice() {
-        commandsAllowed = false;
-        commandField.setEditable(false);
-        commandField.setText("You are currently rolling...");
+        setCommandlineEnabled(false);
+        commandField.setText("You are currently rolling the dice...");
 
         diceTimeline.stop();
         Timeline rollTimeline = new Timeline();
@@ -140,8 +150,7 @@ public class MainController implements Initializable {
             write("You rolled a total of " + finalSum);
 
             commandField.setText("");
-            commandField.setEditable(true);
-            commandsAllowed = true;
+            setCommandlineEnabled(true);
         }));
 
         rollTimeline.play();
@@ -159,13 +168,17 @@ public class MainController implements Initializable {
             if (handled = input.toString().equalsIgnoreCase("help"))
                 write("clear\t\t\t\t\t\t\tRemoves past command history\n" +
                         "exit\t\t\t\t\t\t\tLeaves the game\n" +
-                        "level <skill> <amount>\t\t\tLevels your character using available experience points");
+                        "save\t\t\t\t\t\t\tSaves the character\n" +
+                        "level <skill> <amount>\t\t\tLevels your character using available experience points\n" +
+                        "You must discover the commands that will get you through the house.");
             return handled;
+
         }, input -> {
             boolean handled;
             if (handled = input.toString().equalsIgnoreCase("clear"))
                 historyField.setText("Command History\n");
             return handled;
+
         }, input -> {
             boolean handled;
             if (handled = input.toString().equalsIgnoreCase("exit")) {
@@ -173,32 +186,45 @@ public class MainController implements Initializable {
                 stage.close();
             }
             return handled;
+
         }, input -> {
-            boolean handled;
-            String[] command = input.toString().split(" ");
-            int amount = 0;
-            if (handled = command[0].equalsIgnoreCase("level")) {
-                if (command.length != 3 || !command[2].matches("\\d+"))
-                    write("Invalid command usage: level <skill> <amount>");
-                else if ((amount = Integer.parseInt(command[2])) > character.exp())
-                    write("You do not have enough experience points.");
-                else if (command[1].equalsIgnoreCase("strength"))
-                    character.addStrength(amount);
-                else if (command[1].equalsIgnoreCase("reflex"))
-                    character.addReflex(amount);
-                else if (command[1].equalsIgnoreCase("intelligence"))
-                    character.addIntelligence(amount);
-                else if (command[1].equalsIgnoreCase("perception"))
-                    character.addPerception(amount);
-                else if (command[1].equalsIgnoreCase("dexterity"))
-                    character.addDexterity(amount);
-                else if (command[1].equalsIgnoreCase("luck"))
-                    character.addLuck(amount);
-                else
-                    write("Invalid command usage, unknown skill: level <skill> <amount>");
+            boolean handled; // TODO: Move this to the exit event for the Main GUI
+            if (handled = input.toString().equalsIgnoreCase("save")) {
+                try {
+                    Saves.writeCharacter(character);
+                    write("The character was successfully saved.");
+                } catch (IOException e) {
+                    write("The character could not be saved.");
+                }
             }
-            updateCharacter(character);
             return handled;
+
+        }, input -> {
+                boolean handled;
+                String[] command = input.toString().split(" ");
+                int amount = 0;
+                if (handled = command[0].equalsIgnoreCase("level")) {
+                    if (command.length != 3 || !command[2].matches("\\d+"))
+                        write("Invalid command usage: level <skill> <amount>");
+                    else if ((amount = Integer.parseInt(command[2])) > character.exp())
+                        write("You do not have enough experience points.");
+                    else if (command[1].equalsIgnoreCase("strength"))
+                        character.addStrength(amount);
+                    else if (command[1].equalsIgnoreCase("reflex"))
+                        character.addReflex(amount);
+                    else if (command[1].equalsIgnoreCase("intelligence"))
+                        character.addIntelligence(amount);
+                    else if (command[1].equalsIgnoreCase("perception"))
+                        character.addPerception(amount);
+                    else if (command[1].equalsIgnoreCase("dexterity"))
+                        character.addDexterity(amount);
+                    else if (command[1].equalsIgnoreCase("luck"))
+                        character.addLuck(amount);
+                    else
+                        write("Invalid command usage, unknown skill: level <skill> <amount>");
+                }
+                updateCharacter(character);
+                return handled;
         });
     }
 

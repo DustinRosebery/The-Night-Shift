@@ -1,120 +1,117 @@
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
+import java.io.*;
 import java.util.ArrayList;
 
 /**
  * Saves uses serialization and IO streams to write/read characters to/from the default workspace
- * @author dustinrosebery
+ * @author dustinrosebery, Connor Nelson
  *
  */
-abstract class Saves {
-	
-	/**
-	 * Saves created characters to a .ser file in the default project workspace
-	 * @param saveChar - Character object to be written to file
-	 */
-	static void writeChar(Character saveChar){
-		
-		String saveName = saveChar.name() + ".ser";
-		try {
-			FileOutputStream fos = new FileOutputStream(saveName);
-			ObjectOutputStream oos = new ObjectOutputStream(fos);
-			oos.writeObject(saveChar);
-			oos.close();
-		}
-		catch (FileNotFoundException e) {
-				e.printStackTrace();
-		} 
-		catch (IOException e) {
-				e.printStackTrace();
-		}
-	}
-	
-	/**
-	 * Reads the saved character from a .ser file in the default workspace.
-	 * @param name of character to be retrieved
-	 * @return a Character object of the saved character upon successful lookup,
-	 * or a null Character upon failure.
-	 */
-	static Character readChar(String charName){
-		
-		charName = charName + ".ser";
-		
-		Character result = new Character();
-		
-		try{
-			FileInputStream fis = new FileInputStream(charName);
-			ObjectInputStream ois = new ObjectInputStream(fis);
-			result = (Character) ois.readObject();
-			ois.close();
-		}
-		catch (FileNotFoundException e) {
-		//e.printStackTrace();
-		result = new Character();
-		}
-		catch (IOException e) {
-		//e.printStackTrace();
-		result = new Character();
-		}
-		catch (ClassNotFoundException e) {
-		//e.printStackTrace();
-		result = new Character();
-		}
-		
-		return result;
-	}
-	
-/**
- * Saves the LeaderBoard static class ArrayList containing all recorded scores
- * @param savedScores
- * @param name
- */
-static void writeScores(ArrayList<LeaderBoard> savedScores){
-		
-		String saveName = "leaderboard.ser";
-		try {
-			FileOutputStream fos = new FileOutputStream(saveName);
-			ObjectOutputStream oos = new ObjectOutputStream(fos);
-			oos.writeObject(savedScores);
-			oos.close();
-		}
-		catch (FileNotFoundException e) {
-				e.printStackTrace();
-		} 
-		catch (IOException e) {
-				e.printStackTrace();
-		}
-	}
+public final class Saves {
 
-/**
- * reads the savedScores list from the file leaderboard.ser
- * @return
- */
-static ArrayList<LeaderBoard> readScores(){
-	
-	ArrayList<LeaderBoard> result = new ArrayList<LeaderBoard>();
-	
-	try{
-		FileInputStream fis = new FileInputStream("leaderboard.txt");
-		ObjectInputStream ois = new ObjectInputStream(fis);
-		result = (ArrayList<LeaderBoard>) ois.readObject();
-		ois.close();
-	}
-	catch (FileNotFoundException e) {
-	//e.printStackTrace();
-	}
-	catch (IOException e) {
-	//e.printStackTrace();
-	}
-	catch (ClassNotFoundException e) {
-	//e.printStackTrace();
-	}
-	
-	return result;
-}
+    private static final String PATH = "data/";
+
+    /**
+     * Saves is a static class--it should not be instantiated by anyone
+     */
+    private Saves() {};
+    
+    /**
+     * Saves created characters to a .ser file in the data folder.
+     * @param character - Character object to be written to file
+     */
+    public static void writeCharacter(Character character) throws IOException {
+        String saveName = character.name() + ".ser";
+
+        FileOutputStream fileOutputStream = new FileOutputStream(PATH + saveName);
+        ObjectOutputStream objectOutputStream = new ObjectOutputStream(fileOutputStream);
+        objectOutputStream.writeObject(character);
+
+        objectOutputStream.close();
+        fileOutputStream.close();
+    }
+    
+    /**
+     * Reads the saved character from a .ser file in the data folder.
+     * @throws IOException The character was not found
+     * @throws ClassNotFoundException The character was not found
+     * @param name The name of the character
+     * @return Character object of the saved character upon successful lookup
+     */
+    static Character readCharacter(String name) throws IOException, ClassNotFoundException {
+        name += ".ser";
+
+        FileInputStream fileInputStream = new FileInputStream(PATH + name);
+        ObjectInputStream objectInputStream = new ObjectInputStream(fileInputStream);
+
+        Character result = (Character) objectInputStream.readObject();
+
+        objectInputStream.close();
+        fileInputStream.close();
+
+        return result;
+    }
+
+    /**
+     * Finds all of the saved characters with a .ser file extension in the data folder.
+     * @return A list of the available characters
+     */
+    static ArrayList<String> getCharacters() {
+        ArrayList<String> result = new ArrayList<String>();
+        File dataFolder = new File(PATH);
+        for (File file : dataFolder.listFiles())
+            if (file.isFile() && file.getPath().endsWith(".ser"))
+                result.add(file.getPath().replace(PATH, "").replace(".ser", ""));
+
+        return result;
+    }
+    
+    /**
+     * Saves the LeaderBoard static class ArrayList containing all recorded scores
+     * @param savedScores
+     * @param name
+     */
+    static void writeScores(ArrayList<LeaderBoard> savedScores){
+
+            String saveName = "leaderboard.ser";
+            try {
+                FileOutputStream fos = new FileOutputStream(saveName);
+                ObjectOutputStream oos = new ObjectOutputStream(fos);
+                oos.writeObject(savedScores);
+                oos.close();
+            }
+            catch (FileNotFoundException e) {
+                    e.printStackTrace();
+            }
+            catch (IOException e) {
+                    e.printStackTrace();
+            }
+        }
+
+    /**
+     * reads the savedScores list from the file leaderboard.ser
+     * @return
+     */
+    static ArrayList<LeaderBoard> readScores(){
+
+        ArrayList<LeaderBoard> result = new ArrayList<LeaderBoard>();
+
+        try{
+            FileInputStream fis = new FileInputStream("leaderboard.txt");
+            ObjectInputStream ois = new ObjectInputStream(fis);
+            result = (ArrayList<LeaderBoard>) ois.readObject();
+            ois.close();
+        }
+        catch (FileNotFoundException e) {
+        //e.printStackTrace();
+        }
+        catch (IOException e) {
+        //e.printStackTrace();
+        }
+        catch (ClassNotFoundException e) {
+        //e.printStackTrace();
+        }
+
+        return result;
+    }
 }
 

@@ -23,29 +23,24 @@ public class StartController implements Initializable {
     @FXML private Button createButton;
     @FXML private Button loadButton;
     @FXML private Button leaderboardButon;
-    @FXML private Button helpButton;
     @FXML private Button quitButton;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         createButton.setOnAction(event -> {
             Stage createStage = new Stage();
-            Parent newRoot = null;
+            Parent createRoot = null;
             try {
-                newRoot = FXMLLoader.load(getClass().getResource("/fxml/create.fxml"));
+                createRoot = FXMLLoader.load(getClass().getResource("/fxml/create.fxml"));
             } catch (IOException e) {
                 e.printStackTrace();
             }
 
             Stage startStage = (Stage) startPane.getScene().getWindow();
-            Stage primaryStage = (Stage) startStage.getProperties().get("primary");
-            createStage.getProperties().put("start", startStage);
-            createStage.getProperties().put("primary", primaryStage);
-
             createStage.setTitle("Create Character");
             createStage.setResizable(false);
             createStage.initModality(Modality.APPLICATION_MODAL);
-            createStage.setScene(new Scene(newRoot, 300, 200));
+            createStage.setScene(new Scene(createRoot, 300, 200));
             createStage.show();
 
             startStage.hide();
@@ -53,7 +48,33 @@ public class StartController implements Initializable {
             createStage.setOnCloseRequest(closeEvent -> {
                 startStage.show();
             });
+        });
 
+        loadButton.setOnAction(event -> {
+            Stage loadStage = new Stage();
+            Parent loadRoot = null;
+            try {
+                loadRoot = FXMLLoader.load(getClass().getResource("/fxml/load.fxml"));
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+            Stage startStage = (Stage) startPane.getScene().getWindow();
+            loadStage.setTitle("Load Character");
+            loadStage.setResizable(false);
+            loadStage.initModality(Modality.APPLICATION_MODAL);
+            loadStage.setScene(new Scene(loadRoot, 250, 250));
+            loadStage.show();
+
+            startStage.hide();
+
+            loadStage.setOnCloseRequest(closeEvent -> {
+                startStage.show();
+            });
+        });
+
+        leaderboardButon.setOnAction(event -> {
+            // TODO: Implement leaderboard
         });
 
         quitButton.setOnAction(event -> {

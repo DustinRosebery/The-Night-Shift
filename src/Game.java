@@ -19,14 +19,13 @@ import java.io.IOException;
 
 public class Game extends Application {
 
-    private Character character;
     private static MainController controller;
 
     @Override
     public void start(Stage primaryStage) throws Exception{
         FXMLLoader loader = new FXMLLoader();
         Parent root = loader.load(getClass().getResource("/fxml/main.fxml").openStream());
-        controller = (MainController) loader.getController();
+        controller = loader.getController();
 
         primaryStage.setTitle("The NightShift");
         primaryStage.setResizable(false);
