@@ -10,7 +10,7 @@
   <bottom>
     <VBox prefHeight="-1.0" prefWidth="-1.0">
       <children>
-        <TextArea fx:id="historyField" editable="false" prefHeight="250.0" prefWidth="-1.0" promptText="" text="Command History&#10;" wrapText="true" />
+        <TextArea fx:id="historyField" editable="false" prefHeight="235.0" prefWidth="-1.0" promptText="" text="Command History&#10;" wrapText="true" />
         <TextField fx:id="commandField" prefHeight="25.0" prefWidth="-1.0" promptText="Command" text="" />
       </children>
       <BorderPane.margin>

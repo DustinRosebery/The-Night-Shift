@@ -19,7 +19,7 @@ abstract class Saves {
 	 */
 	static void writeChar(Character saveChar){
 		
-		String saveName = saveChar.getName() + ".ser";
+		String saveName = saveChar.name() + ".ser";
 		try {
 			FileOutputStream fos = new FileOutputStream(saveName);
 			ObjectOutputStream oos = new ObjectOutputStream(fos);

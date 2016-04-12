@@ -82,7 +82,7 @@ public class Main {
 			name = scan.next();
 			myChar = Saves.readChar(name);
 			
-			if (myChar.getName() == ""){
+			if (myChar.name() == ""){
 				System.out.println(name + " was not found");
 				mainMenu();
 			}
@@ -124,15 +124,15 @@ public class Main {
 		
 		System.out.println("\nCharacter Information." +
 							"\n**************************");
-		System.out.println("Name: " + myChar.getName() +
+		System.out.println("Name: " + myChar.name() +
 						 "\n--------------------------" +
-						   "\nStrength:\t\t" + myChar.getStr() +
-						   "\nReflex:\t\t\t" + myChar.getRef() +
-						   "\nIntelligence:\t\t" + myChar.getInt() +
-						   "\nPerception:\t\t" + myChar.getPerc() +
-						   "\nDexterity:\t\t" + myChar.getDex() +
-						   "\nLuck\t\t\t" + myChar.getLuck() +
-						   "\nExp pts:\t\t" + myChar.getExp() +
+						   "\nStrength:\t\t" + myChar.strength() +
+						   "\nReflex:\t\t\t" + myChar.reflex() +
+						   "\nIntelligence:\t\t" + myChar.intelligence() +
+						   "\nPerception:\t\t" + myChar.perception() +
+						   "\nDexterity:\t\t" + myChar.dexterity() +
+						   "\nLuck\t\t\t" + myChar.luck() +
+						   "\nExp pts:\t\t" + myChar.exp() +
 						   "\n--------------------------");	
 		printInv(myChar);
 	}

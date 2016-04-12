@@ -97,7 +97,7 @@ public class CreateController implements Initializable {
                 Stage createStage = (Stage) createPane.getScene().getWindow();
                 createStage.close();
 
-                Game.getController().write(character.getName() + " has been created.");
+                Game.getController().write(character.name() + " has been created.");
                 Game.getController().updateCharacter(character);
             }
         });

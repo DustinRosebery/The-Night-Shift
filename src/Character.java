@@ -10,8 +10,8 @@ public class Character implements Serializable {
     private static final long serialVersionUID = 1l; // required for serialization
 
     private String name;
-    private Inventory myInv; // each character has their own inventory
-    private LeaderBoard myScore; // and LeaderBoard objects
+    private Inventory inventory; // each character has their own inventory
+    private LeaderBoard leaderboard; // and LeaderBoard objects
 
     private int strength;
     private int reflex;
@@ -35,8 +35,8 @@ public class Character implements Serializable {
     public Character(String name, int strength, int reflex, int intelligence,
                      int perception, int dexterity, int luck, int exp) {
         this.name = name;
-        myInv = new Inventory();
-        myScore = new LeaderBoard();
+        inventory = new Inventory();
+        leaderboard = new LeaderBoard();
 
         this.strength = strength;
         this.reflex = reflex;
@@ -48,154 +48,160 @@ public class Character implements Serializable {
     }
 
     /**
-     * Constructor called when creating a new character
-     *
-     * @param name chosen by the player
+     * Default character with name
      */
     public Character(String name) {
         this(name, 10, 10, 10, 10, 10, 10, 0);
     }
 
-    public Character() {    // default constructor for null read results
-        this("");
+    /**
+     * Default character
+     */
+    public Character() {
+        this("Anonymous");
     }
 
     /**
-     * return characters inventory item at specified index
-     *
-     * @param index
-     * @return Item object at index
+     * @param index Index of item in inventory
+     * @return Item in inventory at index
      */
     public Items getItem(int index) {
-        return myInv.getItem(index);
+        return inventory.getItem(index);
     }
 
 
     /**
-     * getter method
-     *
-     * @return name
+     * @return Name
      */
-    public String getName() {
+    public String name() {
         return name;
     }
 
     /**
-     * returns characters Inventory object
-     *
-     * @return inventory
+     * @return Character's inventory
      */
     public Inventory inventory() {
-        return myInv;
+        return inventory;
     }
 
     /**
-     * returns characters LeaderBoard object
-     *
-     * @return
+     * @return Character's leaderboard
      */
     public LeaderBoard score() {
-        return myScore;
+        return leaderboard;
     }
 
 
     /**
-     * getter method
-     *
-     * @return strength
+     * @return Strength
      */
-    public int getStr() {
+    public int strength() {
         return strength;
     }
 
     /**
-     * getter method
-     *
-     * @return reflex
+     * @return Reflex
      */
-    public int getRef() {
+    public int reflex() {
         return reflex;
     }
 
     /**
-     * getter method
-     *
-     * @return intelligence
+     * @return Intelligence
      */
-    public int getInt() {
+    public int intelligence() {
         return intelligence;
     }
 
     /**
-     * getter method
-     *
-     * @return perception
+     * @return Perception
      */
-    public int getPerc() {
+    public int perception() {
         return perception;
     }
 
     /**
-     * getter method
-     *
-     * @return dexterity
+     * @return Dexterity
      */
-    public int getDex() {
+    public int dexterity() {
         return dexterity;
     }
 
     /**
-     * getter method
-     *
-     * @return luck
+     * @return Luck
      */
-    public int getLuck() {
+    public int luck() {
         return luck;
     }
 
     /**
-     * getter method
-     *
-     * @return exp
+     * @return Experience points
      */
-    public int getExp() {
+    public int exp() {
         return exp;
     }
 
 
     /**
-     * increases strength by 1
+     * Increases strength and decreases experience points
+     * @param amount The amount to increase the strength by
      */
-    public void addStr() {
-        strength++;
+    public void addStrength(int amount) {
+        strength += amount;
+        exp -= amount;
     }
 
     /**
-     * increases reflex by 1
+     * Increases reflex and decreases experience points
+     * @param amount The amount to increase the reflex by
      */
-    public void addRef() {
-        reflex++;
+    public void addReflex(int amount) {
+        reflex += amount;
+        exp -= amount;
     }
 
     /**
-     * increases intelligence by 1
+     * Increases intelligence and decreases experience points
+     * @param amount The amount to increase the intelligence by
      */
-    public void addInt() {
-        intelligence++;
+    public void addIntelligence(int amount) {
+        intelligence += amount;
+        exp -= amount;
     }
 
     /**
-     * increases perception by 1
+     * Increases perception and decreases experience points
+     * @param amount The amount to increase the perception by
      */
-    public void addPerc() {
-        perception++;
+    public void addPerception(int amount) {
+        perception += amount;
+        exp -= amount;
     }
 
     /**
-     * increases dexterity by 1
+     * Increases dexterity and decreases experience points
+     * @param amount The amount to increase the dexterity by
      */
-    public void addDex() {
+    public void addDexterity(int amount) {
         dexterity++;
+        exp -= amount;
     }
 
-} // end Character
+    /**
+     * Increases luck and decreases experience points
+     * @param amount The amount to increase the luck by
+     */
+    public void addLuck(int amount) {
+        luck++;
+        exp -= amount;
+    }
+
+    /**
+     * Increases the amount of available experience points
+     * @param amount The amount to increase the experience points by
+     */
+    public void addExp(int amount) {
+        exp += amount;
+    }
+
+}

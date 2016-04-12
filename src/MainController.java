@@ -1,4 +1,5 @@
 import javafx.animation.*;
+import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.TextArea;
@@ -6,6 +7,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
+import javafx.scene.input.ScrollEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 import javafx.util.Duration;
@@ -28,9 +30,12 @@ public class MainController implements Initializable {
     //TODO: private Room currentRoom;
 
     private Interpreter interpreter;
+    private boolean commandsAllowed;
 
     private Timeline diceTimeline; // Animation for the Dice
     private ArrayList<Image> diceFaces;
+    private boolean diceStopped; // Animation pauses are asynchronous--ensures dice doesn't roll while displaying a value
+
 
     @FXML private BorderPane mainPane;
     @FXML private TextField commandField;
@@ -48,12 +53,11 @@ public class MainController implements Initializable {
 
         // Connect command field to interpreter
         commandField.setOnKeyPressed(event -> {
-            if (event.getCode() == KeyCode.ENTER) {
+            if (event.getCode() == KeyCode.ENTER && commandsAllowed) {
                 String command = commandField.getText();
                 commandField.clear();
                 write(command);
 
-                boolean generalHandled = interpreter.interpret(command);
                 if (!interpreter.interpret(command))
                     //TODO: if(!Room.getInterpreter().interpret(command));
                     write("Unknown command: Type \"help\" for help regarding commands.");
@@ -64,14 +68,8 @@ public class MainController implements Initializable {
         // Testing commands; TODO: Remove later
         interpreter.offer(input -> {
             boolean handled;
-            if (handled = input.toString().equalsIgnoreCase("play")) {
-                diceTimeline.play();
-            }
-            return handled;
-        }, input -> {
-            boolean handled;
-            if (handled = input.toString().equalsIgnoreCase("pause")) {
-                diceTimeline.pause();
+            if (handled = input.toString().equalsIgnoreCase("roll")) {
+                int roll = rollDice();
             }
             return handled;
         });
@@ -92,40 +90,114 @@ public class MainController implements Initializable {
     public void updateCharacter(Character character) {
         this.character = character;
 
-        statsField.setText("Stats for " + character.getName() + "\n\n");
-        statsField.appendText("Strength:\t\t\t\t" + character.getStr() + "\n");
-        statsField.appendText("Reflex:\t\t\t\t" + character.getRef() + "\n");
-        statsField.appendText("Intelligence:\t\t\t" + character.getInt() + "\n");
-        statsField.appendText("Perception:\t\t\t" + character.getPerc() + "\n");
-        statsField.appendText("Dexterity:\t\t\t\t" + character.getDex() + "\n");
-        statsField.appendText("Luck:\t\t\t\t" + character.getLuck() + "\n");
-        statsField.appendText("Experience Points:\t\t" + character.getExp() + "\n");
+        statsField.setText("Stats for " + character.name() + "\n\n");
+        statsField.appendText("Strength:\t\t\t\t" + character.strength() + "\n");
+        statsField.appendText("Reflex:\t\t\t\t" + character.reflex() + "\n");
+        statsField.appendText("Intelligence:\t\t\t" + character.intelligence() + "\n");
+        statsField.appendText("Perception:\t\t\t" + character.perception() + "\n");
+        statsField.appendText("Dexterity:\t\t\t\t" + character.dexterity() + "\n");
+        statsField.appendText("Luck:\t\t\t\t" + character.luck() + "\n");
+        statsField.appendText("Experience Points:\t\t" + character.exp() + "\n");
     }
 
     //TODO: public void updateRoom(Room room);
 
     /**
-     * Sets up the interpreter with a few basic commands
-     * TODO: Implement real commands
+     * Animates a dice roll and prevents commands from being interpreted while doing so
+     * @return A random number (3-18) from rolling the dice
+     */
+    public int rollDice() {
+        commandsAllowed = false;
+        commandField.setEditable(false);
+        commandField.setText("You are currently rolling...");
+
+        diceTimeline.stop();
+        Timeline rollTimeline = new Timeline();
+
+        final int numDice = 3;
+        int[] rolls = new int[numDice];
+        int sum = 0;
+        for (int roll = 0; roll < numDice; roll++) {
+            sum += rolls[roll] = (int) (Math.random() * 6 + 1);
+
+            final int finalRoll = roll;
+            rollTimeline.getKeyFrames().addAll(new KeyFrame(Duration.millis(50 * FRAME_DURATION * roll), event -> {
+                diceStopped = false;
+                diceTimeline.playFromStart();
+            }), new KeyFrame(Duration.millis(50 * FRAME_DURATION * roll + 20 * FRAME_DURATION), event -> {
+                diceStopped = true;
+                diceTimeline.stop();
+                diceView.setRotate(0);
+                diceView.setImage(diceFaces.get(2 * rolls[finalRoll] - 1));
+            }));
+        }
+
+        final int finalSum = sum;
+        rollTimeline.getKeyFrames().add(new KeyFrame(Duration.millis(50 * FRAME_DURATION * numDice), event -> {
+            diceStopped = false;
+            diceTimeline.playFromStart();
+
+            write("You rolled a total of " + finalSum);
+
+            commandField.setText("");
+            commandField.setEditable(true);
+            commandsAllowed = true;
+        }));
+
+        rollTimeline.play();
+        return sum;
+    }
+
+    /**
+     * Sets up the interpreter with basic commands
      */
     private void initializeInterpreter() {
+        commandsAllowed = true;
+
         interpreter = new Interpreter(input -> {
             boolean handled;
-            String message = input.toString().replace("say ", "");
-            if (handled = input.toString().contains("say "))
-                descriptionField.appendText("\n" + message);
+            if (handled = input.toString().equalsIgnoreCase("help"))
+                write("clear\t\t\t\t\t\t\tRemoves past command history\n" +
+                        "exit\t\t\t\t\t\t\tLeaves the game\n" +
+                        "level <skill> <amount>\t\t\tLevels your character using available experience points");
             return handled;
         }, input -> {
             boolean handled;
             if (handled = input.toString().equalsIgnoreCase("clear"))
-                descriptionField.clear();
+                historyField.setText("Command History\n");
             return handled;
         }, input -> {
             boolean handled;
-            if (handled = input.toString().matches("(.*)exit(.*)")) {
+            if (handled = input.toString().equalsIgnoreCase("exit")) {
                 Stage stage = (Stage) mainPane.getScene().getWindow();
                 stage.close();
             }
+            return handled;
+        }, input -> {
+            boolean handled;
+            String[] command = input.toString().split(" ");
+            int amount = 0;
+            if (handled = command[0].equalsIgnoreCase("level")) {
+                if (command.length != 3 || !command[2].matches("\\d+"))
+                    write("Invalid command usage: level <skill> <amount>");
+                else if ((amount = Integer.parseInt(command[2])) > character.exp())
+                    write("You do not have enough experience points.");
+                else if (command[1].equalsIgnoreCase("strength"))
+                    character.addStrength(amount);
+                else if (command[1].equalsIgnoreCase("reflex"))
+                    character.addReflex(amount);
+                else if (command[1].equalsIgnoreCase("intelligence"))
+                    character.addIntelligence(amount);
+                else if (command[1].equalsIgnoreCase("perception"))
+                    character.addPerception(amount);
+                else if (command[1].equalsIgnoreCase("dexterity"))
+                    character.addDexterity(amount);
+                else if (command[1].equalsIgnoreCase("luck"))
+                    character.addLuck(amount);
+                else
+                    write("Invalid command usage, unknown skill: level <skill> <amount>");
+            }
+            updateCharacter(character);
             return handled;
         });
     }
@@ -148,12 +220,16 @@ public class MainController implements Initializable {
         diceFaces.add(new Image("/img/numbers/six_off.png"));
         diceFaces.add(new Image("/img/numbers/six_on.png"));
 
+        diceStopped = false;
+
         diceTimeline = new Timeline();
         for (int idx = 0; idx < 6; idx++) {
             final int finalIdx = idx;
-            diceTimeline.getKeyFrames().addAll(new KeyFrame(Duration.millis(FRAME_DURATION * idx), event -> {
-                diceView.setImage(diceFaces.get(2 * finalIdx));
-                diceView.setRotate(75 * finalIdx);
+            diceTimeline.getKeyFrames().add(new KeyFrame(Duration.millis(FRAME_DURATION * idx), event -> {
+                if (!diceStopped) {
+                    diceView.setImage(diceFaces.get(2 * finalIdx));
+                    diceView.setRotate(75 * finalIdx);
+                }
             }));
         }
         diceTimeline.setCycleCount(Timeline.INDEFINITE);
