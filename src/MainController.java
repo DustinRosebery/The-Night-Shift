@@ -67,7 +67,6 @@ public class MainController implements Initializable {
             }
         });
 
-
         // Testing commands; TODO: Remove later, just to test roll function
         interpreter.offer(input -> {
             boolean handled;
@@ -109,6 +108,13 @@ public class MainController implements Initializable {
         statsField.appendText("Dexterity:\t\t\t\t" + character.dexterity() + "\n");
         statsField.appendText("Luck:\t\t\t\t" + character.luck() + "\n");
         statsField.appendText("Experience Points:\t\t" + character.exp() + "\n");
+    }
+
+    /**
+     * @return The current character in the game
+     */
+    public Character getCharacter() {
+        return character;
     }
 
     //TODO: public void updateRoom(Room room);
@@ -163,7 +169,20 @@ public class MainController implements Initializable {
     private void initializeInterpreter() {
         commandsAllowed = true;
 
-        interpreter = new Interpreter(input -> {
+        interpreter = new Interpreter( input -> {
+            if (character != null)
+                try {
+                    Saves.writeCharacter(character);
+                    System.out.println("[Autosave] The character was successfully saved.");
+                } catch (IOException e) {
+                    System.out.println("[Autosave] The character could not be saved.");
+                }
+            else
+                System.out.println("[Autosave] The character could not be saved.");
+
+            return false; // Autosave character, but do not prevent commands from happening
+
+        }, input -> {
             boolean handled;
             if (handled = input.toString().equalsIgnoreCase("help"))
                 write("clear\t\t\t\t\t\t\tRemoves past command history\n" +
@@ -184,18 +203,6 @@ public class MainController implements Initializable {
             if (handled = input.toString().equalsIgnoreCase("exit")) {
                 Stage stage = (Stage) mainPane.getScene().getWindow();
                 stage.close();
-            }
-            return handled;
-
-        }, input -> {
-            boolean handled; // TODO: Move this to the exit event for the Main GUI
-            if (handled = input.toString().equalsIgnoreCase("save")) {
-                try {
-                    Saves.writeCharacter(character);
-                    write("The character was successfully saved.");
-                } catch (IOException e) {
-                    write("The character could not be saved.");
-                }
             }
             return handled;
 

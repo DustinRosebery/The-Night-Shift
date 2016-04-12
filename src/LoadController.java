@@ -30,7 +30,6 @@ public class LoadController implements Initializable {
             String selected = listView.getSelectionModel().getSelectedItem();
             if (selected != null) {
                 try {
-                    System.out.println(selected);
                     Character character = Saves.readCharacter(selected);
 
                     Stage loadStage = (Stage) loadPane.getScene().getWindow();
