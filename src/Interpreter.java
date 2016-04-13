@@ -21,10 +21,13 @@ public class Interpreter {
     /**
      * Iterates through all commands and executes those in which the condition is met
      * @param input Input for the command to match against
+     * @return Whether or not a command handled the input
      */
-    public void interpret(Object input) {
+    public boolean interpret(Object input) {
         for (Command cmd : commands)
-            cmd.execute(input);
+            if (cmd.execute(input))
+                return true;
+        return false;
     }
 
     /**

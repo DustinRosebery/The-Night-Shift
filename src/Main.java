@@ -1,3 +1,4 @@
+import java.io.IOException;
 import java.util.Scanner;
 
 /**
@@ -36,14 +37,14 @@ public class Main {
 	/**
 	 * Displays Main Menu options and detects input
 	 */
-	public static void mainMenu(){ 
+	public static void mainMenu() {
 		printMenu();
 		String choice = "";
 		String name;
 		
 		System.out.println("\n\nWhat would you like to do?\t");
 		Scanner scan = new Scanner(System.in);
-		Character myChar;
+		Character myChar = null;
 		
 		choice = scan.next();
 		
@@ -62,7 +63,11 @@ public class Main {
 			}
 			else{
 				myChar = new Character(name);
-				Saves.writeChar(myChar);
+				try {
+					Saves.writeCharacter(myChar);
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
 				LeaderBoard.addScore(myChar.score());
 				System.out.println( "\n**************************"
 									+ "\n" + name + " created and saved!" 
@@ -76,9 +81,13 @@ public class Main {
 		case ("2") :	// load character
 			System.out.println("Which character would you like to play?");
 			name = scan.next();
-			myChar = Saves.readChar(name);
-			
-			if (myChar.getName() == ""){
+			try {
+				myChar = Saves.readCharacter(name);
+			} catch (IOException | ClassNotFoundException e) {
+				e.printStackTrace();
+			}
+
+			if (myChar.name() == ""){
 				System.out.println(name + " was not found");
 				mainMenu();
 			}
@@ -120,15 +129,15 @@ public class Main {
 		
 		System.out.println("\nCharacter Information." +
 							"\n**************************");
-		System.out.println("Name: " + myChar.getName() +
+		System.out.println("Name: " + myChar.name() +
 						 "\n--------------------------" +
-						   "\nStrength:\t\t" + myChar.getStr() +
-						   "\nReflex:\t\t\t" + myChar.getRef() +
-						   "\nIntelligence:\t\t" + myChar.getInt() +
-						   "\nPerception:\t\t" + myChar.getPerc() +
-						   "\nDexterity:\t\t" + myChar.getDex() +
-						   "\nLuck\t\t\t" + myChar.getLuck() +
-						   "\nExp pts:\t\t" + myChar.getExp() +
+						   "\nStrength:\t\t" + myChar.strength() +
+						   "\nReflex:\t\t\t" + myChar.reflex() +
+						   "\nIntelligence:\t\t" + myChar.intelligence() +
+						   "\nPerception:\t\t" + myChar.perception() +
+						   "\nDexterity:\t\t" + myChar.dexterity() +
+						   "\nLuck\t\t\t" + myChar.luck() +
+						   "\nExp pts:\t\t" + myChar.exp() +
 						   "\n--------------------------");	
 		printInv(myChar);
 	}

@@ -1,9 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
 <?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
-<?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
 
 <VBox fx:id="startPane" alignment="CENTER" disable="false" fillWidth="true" prefHeight="250.0" prefWidth="250.0" visible="true" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="StartController">
@@ -14,8 +12,7 @@
       </VBox.margin>
     </Button>
     <Button fx:id="loadButton" mnemonicParsing="false" prefWidth="230.0" text="Load Saved Character" VBox.margin="$x1" />
-    <Button fx:id="leaderboardButton" mnemonicParsing="false" prefWidth="230.0" text="View Leaderboard" VBox.margin="$x1" />
-    <Button fx:id="helpButton" mnemonicParsing="false" prefWidth="230.0" text="Show Help Menu" VBox.margin="$x1" />
+    <Button fx:id="leaderboardButon" mnemonicParsing="false" prefWidth="230.0" text="View Leaderboard" VBox.margin="$x1" />
     <Button fx:id="quitButton" mnemonicParsing="false" prefWidth="230.0" text="Quit" VBox.margin="$x1" />
   </children>
 </VBox>
