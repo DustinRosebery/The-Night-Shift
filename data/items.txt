@@ -13,3 +13,5 @@ Speakers 75 12
 Silverware 100 4
 Guitar 50 3
 Cell_Phone 450 .5
+Outdoor_Speakers 350 45
+Bike_Pump 20 2
