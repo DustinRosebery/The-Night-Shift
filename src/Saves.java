@@ -36,7 +36,7 @@ abstract class Saves {
 	
 	/**
 	 * Reads the saved character from a .ser file in the default workspace.
-	 * @param name of character to be retrieved
+	 * @param charName of character to be retrieved
 	 * @return a Character object of the saved character upon successful lookup,
 	 * or a null Character upon failure.
 	 */

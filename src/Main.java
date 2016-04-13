@@ -1,28 +1,24 @@
 import java.util.Scanner;
 
 /**
- * Main guides the user through the game menus
+ *
  * @author dustinrosebery
  *
  */
 public class Main {
 
 	/**
-	 * populates ItemList -- Loads LeaderBoard info -- runs Main menu
-	 * @param args
+	 * populates ItemList -- Loads LeaderBoard info -- Initialize Rooms
+	 * @param
 	 */
-	/*public static void main(String[] args){
+	public static void initGame(){
 		
-		System.out.println("\nWelcome to TheNightShift" +
-						   "\n--------------------------");
 		Items.populate();
 		Saves.readScores();
-		mainMenu();
+		Rooms.initRooms();
 
-		MainGUI controller = new MainGUI();
-
-		
-	}*/
+		//control
+	}
 	
 	/**
 	 * System out of menu options

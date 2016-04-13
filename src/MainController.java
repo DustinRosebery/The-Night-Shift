@@ -12,7 +12,10 @@ import javafx.util.Duration;
 
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.ResourceBundle;
+
+import java.util.Scanner;
 
 /**
  * Controls the interaction between the GUI and the Game
@@ -42,7 +45,7 @@ public class MainController implements Initializable {
             if (event.getCode() == KeyCode.ENTER) {
                 String command = commandField.getText();
                 commandField.clear();
-                historyField.appendText("\n" + command);
+                //historyField.appendText("\n" + command);
                 interpreter.interpret(command);
             }
         });
@@ -81,9 +84,24 @@ public class MainController implements Initializable {
         });
 
         Rooms.initRooms();
-        System.out.println("\nWelcome to the Night Shift" +
-                "\n--------------------------");
-        descriptionField.appendText(Rooms.gameMap.getFirst().description);
+        //Items.populate();
+        Saves.readScores();
+
+        descriptionField.setText("Please enter your characters name.");
+        descriptionField.setText(Rooms.gameMap.getFirst().description);
+
+        statsField.setText( "\nName:\t" + myChar.getName() +
+                "\n-----------------------------" +
+                "\nStrength:\t\t\t\t" + myChar.getStr() +
+                "\nIntelligence:\t\t\t" + myChar.getInt() +
+                "\nPerception:\t\t\t" + myChar.getInt() +
+                "\nDexterity:\t\t\t" + myChar.getDex() +
+                "\nReflex:\t\t\t\t" + myChar.getRef() +
+                "\nLuck:\t\t\t\t" + myChar.getLuck() +
+                "\nXp\t\t\t\t\t" + myChar.getExp());
+    }
+
+
 
     }
 
@@ -104,8 +122,37 @@ public class MainController implements Initializable {
                 Stage stage = (Stage) mainPane.getScene().getWindow();
                 stage.close();
             }
+        }, input -> {
+            if (input.toString().matches("help")) {
+                descriptionField.clear();
+                descriptionField.appendText(helpMenu());
+            }
+        }, input -> {
+            if (input.toString().matches("done")){
+                descriptionField.setText(Rooms.gameMap.getFirst().description);
+            }
         });
     }
+
+    public static String helpMenu(){
+        return "The Night Shift Is a game where you create and play as a down and out slacker just trying to come up in the world... At any cost. " +
+                "\n\nThe objective of the game is to explore a house and make off with as many valuables as possible without getting caught. " +
+                "You start with a set of base statistics that will determine how you perform certain tasks within the game. Skill checks will be " +
+                "made using the total sum of a roll of three six-sided dice." +
+                "\n\nFor Example; you have a dexterity skill of 11,  and you accidentally knock some plates off a shelf, roll against your Dex " +
+                "to see what happens. If the sum of the three dice turns up 11 or less, you perform the action sucessfully, if not, well, you gotta " +
+                "be prepared for the consecuences." +
+                "\n\nEvery room in the \"House\" will have a description. The best way to interact with the room is to exlpore. Try different commands " +
+                "(punctuation not required) and see what effect, if any, they have." +
+                "\n\nPoints will be awarded based on the amount of valuables that you succesfully make it out with, and experience points will be awarded " +
+                "and used to increase a players skills. Each succesful burglary will be totalled and included on updated on the Leader Board to keep track " +
+                "of your progress. Careful though, bad luck happens, and if you get caught, your character gets zapped and his stats and skills erased." +
+                "\ntype done to return to game.";
+
+
+    }
+
+    public void initChar(Character myChar) {
 
 
 }
