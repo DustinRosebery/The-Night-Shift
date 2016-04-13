@@ -16,3 +16,4 @@ Cell_Phone 450 .5
 Outdoor_Speakers 350 45
 Bike_Pump 20 2
 GPS 200 .5
+Wire_Hanger 1 .1
