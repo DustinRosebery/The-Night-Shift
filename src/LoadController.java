@@ -38,6 +38,7 @@ public class LoadController implements Initializable {
                     Game.getController().updateCharacter(character);
                     Game.getController().write(selected + " has been successfully loaded.");
 
+                    Game.loadGame(character);
 
                 } catch (IOException | ClassNotFoundException e) {
                     Game.getController().write("Character could not be loaded.");

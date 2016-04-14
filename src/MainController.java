@@ -208,6 +208,11 @@ public class MainController implements Initializable {
 
         }, input -> {
             boolean handled;
+            if (handled = input.toString().equalsIgnoreCase("roll"))
+                rollDice();
+            return handled;
+        }, input -> {
+            boolean handled;
             if (handled = input.toString().equalsIgnoreCase("clear"))
                 historyField.setText("Command History\n");
             return handled;

@@ -53,7 +53,7 @@ public class Game extends Application {
     }
 
     /**
-     * where you land after creating or loading your character.
+     * where you land after creating your character.
      * @param character being played
      */
     public static void startGame(Character character) {
@@ -61,6 +61,17 @@ public class Game extends Application {
         character.initMap();
         controller.updateRoom(character);
         controller.write ("Try going inside");
+    }
+
+    /**
+     * Initiates items and updates description upon successful character load
+     * @param character currently being played
+     */
+    public static void loadGame(Character character) {
+        //Items.populate();
+        controller.updateRoom(character);
+        if (character.index() == 0)
+            controller.write ("try going inside");
     }
 
     public static void main(String... args) {
