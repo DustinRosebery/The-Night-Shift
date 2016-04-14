@@ -6,7 +6,7 @@ public class Outside extends Rooms {
    Outside(){
        name = ("Outside");
 
-       description = ("\nWith a slight shudder of anticipation, and an almost imperceptible twitch, you scan your surroundings." +
+       description = ("With a slight shudder of anticipation, and an almost imperceptible twitch, you scan your surroundings." +
                "Beautiful houses with long driveways and very well kept lawns line the twisting street ahead. Cars that you" +
                "have only seen on tv are parked in front. You wonder how you even got in here... Wasn't there a gate somewhere?" +
                "Oh well, you shrug, \"I guess it's time to get to work.\" Welcome to..." +

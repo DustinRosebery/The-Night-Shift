@@ -54,12 +54,13 @@ public class Game extends Application {
 
     /**
      * where you land after creating or loading your character.
-     * @param myChar character being played
+     * @param character being played
      */
-    public static void startGame(Character myChar) {
+    public static void startGame(Character character) {
         //Items.populate();
-        myChar.initMap();
-        controller.updateRoom(myChar);
+        character.initMap();
+        controller.updateRoom(character);
+        controller.write ("Try going inside");
     }
 
     public static void main(String... args) {

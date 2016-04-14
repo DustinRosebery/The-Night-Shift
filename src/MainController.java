@@ -123,11 +123,14 @@ public class MainController implements Initializable {
         return character;
     }
 
+    /**
+     * uses characters current room index to set the room description
+     * @param myChar current character
+     */
     public void updateRoom(Character myChar) {
         descriptionField.setText("Room Description\n");
-        descriptionField.appendText(myChar.getRoomName(myChar.index()) + "\n" + myChar.getRoomDesc(myChar.index()));
+        descriptionField.appendText(myChar.getRoomName(myChar.index()) + "\n\n" + myChar.getRoomDesc(myChar.index()));
     }
-
 
     /**
      * Animates a dice roll and prevents commands from being interpreted while doing so
@@ -243,15 +246,17 @@ public class MainController implements Initializable {
                 updateCharacter(character);
                 return handled;
         }, input -> {                                       // basic movement between rooms according to the room map
-            boolean handled = false;
+            boolean handled;
             String[] command = input.toString().split(" ");
             String[] words = {"go", "goto", "sneak"};
-            boolean firstCheck = false;
+
             for (int wordsIndex = 0; wordsIndex < words.length; wordsIndex++) {
-                if (handled = command[0].equalsIgnoreCase(words[wordsIndex]) && !firstCheck) {
+                if (handled = command[0].equalsIgnoreCase(words[wordsIndex])) {
+                    boolean checked = false;
+
                     for (int cmdIndex = 0; cmdIndex < command.length; cmdIndex++) {
                         int thisIndex = character.index();
-                        boolean checked = false;
+
                         if (command[cmdIndex].equalsIgnoreCase("kitchen") && !checked) {
                             if (thisIndex == 2 || thisIndex == 5 || thisIndex == 3) {
                                 character.setIndex(4);
@@ -282,20 +287,19 @@ public class MainController implements Initializable {
                                 checked = true;
                             } else
                                 write("You'll have to trying getting there from a different place.");
+                        } else if (command[cmdIndex].equalsIgnoreCase("inside") && !checked) {          // for testing
+                            if (thisIndex == 0) {
+                                character.setIndex(2);
+                                checked = true;
+                            } else
+                                write("You're already inside...");
                         }
                         if (checked)
                             updateRoom(character);
                     }
                 }
             }
-            return handled;
-        }, input -> {
-            boolean handled;
-            if (handled = input.toString().equals("tp admin")) {
-                character.setIndex(1);
-                System.out.println("Character index after command: " + character.index());
-                updateRoom(character);
-            }
+            handled = true;
             return handled;
         });
     }

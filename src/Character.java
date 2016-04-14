@@ -2,9 +2,8 @@ import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
- * Character holds the information for each character that plays the game
- *
- * @author dustinrosebery, Connor Nelson
+ * Characters holds all relevent data in one serializable package
+ * @authors dustinrosebery, Connor Nelson
  */
 public class Character implements Serializable {
 
@@ -42,9 +41,6 @@ public class Character implements Serializable {
         leaderboard = new LeaderBoard();
 
         this.map = new ArrayList<Rooms>();
-        this.map.add(new Outside());
-        this.map.add(new LivingRoom());
-        //TODO: add other rooms
         roomIndex = 0;
 
         this.strength = strength;
@@ -91,13 +87,12 @@ public class Character implements Serializable {
      * instantiates the room map for new players
      */
     public void initMap() {
-        //TODO create commented room classes
         map.add(0, new Outside());
-        //map.add(1, new Basement());
+        map.add(1, new Basement());
         map.add(2, new LivingRoom());
-        //map.add(3, new Bedroom());
-        //map.add(4, new Kitchen());
-        //map.add(5, new Garage());
+        map.add(3, new Bedroom());
+        map.add(4, new Kitchen());
+        map.add(5, new Garage());
     }
 
     /**
@@ -129,7 +124,6 @@ public class Character implements Serializable {
     public LeaderBoard score() {
         return leaderboard;
     }
-
 
     /**
      * @return Strength
@@ -185,6 +179,10 @@ public class Character implements Serializable {
      */
     public int index() { return roomIndex; }
 
+    /**
+     * @param index sets current Room
+     */
+    public void setIndex (int index) { roomIndex = index; }
 
     /**
      * Increases strength and decreases experience points
@@ -246,13 +244,6 @@ public class Character implements Serializable {
      */
     public void addExp(int amount) {
         exp += amount;
-    }
-
-    /**
-     * @param index sets characters current room index
-     */
-    public void setIndex (int index) {
-        roomIndex = index;
     }
 
 }
