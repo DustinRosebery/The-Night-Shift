@@ -179,6 +179,7 @@ public class MainController implements Initializable {
     /**
      * Sets up the interpreter with basic commands
      */
+    // TODO: implement a look function to write room exits
     private void initializeInterpreter() {
         commandsAllowed = true;
 
@@ -261,36 +262,42 @@ public class MainController implements Initializable {
                             if (thisIndex == 2 || thisIndex == 5 || thisIndex == 3) {
                                 character.setIndex(4);
                                 checked = true;
+                                write ("you see: the bedroom, garage, and living room");
                             } else
                                 write("Where do you want to go?");
                         } else if (command[cmdIndex].equalsIgnoreCase("living") && !checked) {
                             if (thisIndex == 1 || thisIndex == 3 || thisIndex == 4) {
                                 character.setIndex(2);
                                 checked = true;
+                                write ("you see the basement, kitchen, and bedroom");
                             } else
                                 write("How do you plan on getting there?");
                         } else if (command[cmdIndex].equalsIgnoreCase("bed") || command[cmdIndex].equalsIgnoreCase("bedroom") && !checked) {
                             if (thisIndex == 2 || thisIndex == 4) {
                                 character.setIndex(3);
                                 checked = true;
+                                write ("you see: the living room, and the kitchen");
                             } else
                                 write("You can't go there from here.");
                         } else if (command[cmdIndex].equalsIgnoreCase("basement") && !checked) {
                             if (thisIndex == 2 || thisIndex == 5) {
                                 character.setIndex(1);
                                 checked = true;
+                                write ("you see: the garage, and the living room");
                             } else
                                 write("Try another room.");
                         } else if (command[cmdIndex].equalsIgnoreCase("garage") && !checked) {
                             if (thisIndex == 1 || thisIndex == 4) {
                                 character.setIndex(5);
                                 checked = true;
+                                write ("you see: the kitchem, and the basement");
                             } else
                                 write("You'll have to trying getting there from a different place.");
                         } else if (command[cmdIndex].equalsIgnoreCase("inside") && !checked) {          // for testing
                             if (thisIndex == 0) {
                                 character.setIndex(2);
                                 checked = true;
+                                write ("you see: the kitchen, bedroom, and basement");
                             } else
                                 write("You're already inside...");
                         }

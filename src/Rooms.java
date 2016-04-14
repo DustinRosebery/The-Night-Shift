@@ -12,6 +12,7 @@ public abstract class Rooms implements Serializable{
 
     String name = "";
     String description = "";
+    String exits = ""; // shows the possible room exits to be written to history
     ArrayList<Items> roomItems = new ArrayList<Items>();
 
         // add rooms to map
