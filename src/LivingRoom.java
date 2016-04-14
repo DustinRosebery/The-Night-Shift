@@ -4,8 +4,8 @@
 public class LivingRoom extends Rooms {
 
     LivingRoom() {
-        Rooms.setName("Living Room");
+        name = ("Living Room");
 
-        Rooms.setDesc("you are in the living room");
+        description = ("you are in the living room");
     }
 }

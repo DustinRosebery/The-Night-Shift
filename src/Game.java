@@ -8,6 +8,7 @@ import javafx.scene.layout.Pane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
+import java.util.ArrayList;
 
 import java.io.IOException;
 
@@ -53,12 +54,12 @@ public class Game extends Application {
 
     /**
      * where you land after creating or loading your character.
-     * @param myChar
+     * @param myChar character being played
      */
     public static void startGame(Character myChar) {
-        Rooms.initRooms();
-        Items.populate();
-        controller.setDesc(Rooms.gameMap[myChar.index()].name + "\n" + Rooms.gameMap.[myChar.index()].description);
+        //Items.populate();
+        myChar.initMap();
+        controller.updateRoom(myChar);
     }
 
     public static void main(String... args) {

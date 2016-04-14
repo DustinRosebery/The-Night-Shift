@@ -1,4 +1,5 @@
 import java.io.Serializable;
+import java.util.ArrayList;
 
 /**
  * Character holds the information for each character that plays the game
@@ -10,9 +11,9 @@ public class Character implements Serializable {
     private static final long serialVersionUID = 1l; // required for serialization
 
     private String name;
-    private Inventory inventory;        // each character has their own inventory
-    private LeaderBoard leaderboard;    // and LeaderBoard objects
-    private Rooms map;                  // and room map
+    private Inventory inventory;                                // each character has their own inventory
+    private LeaderBoard leaderboard;                            // and LeaderBoard objects
+    private ArrayList<Rooms> map;                               // and room map
     private int roomIndex;
 
     private int strength;
@@ -39,7 +40,11 @@ public class Character implements Serializable {
         this.name = name;
         inventory = new Inventory();
         leaderboard = new LeaderBoard();
-        map = new Rooms();
+
+        this.map = new ArrayList<Rooms>();
+        this.map.add(new Outside());
+        this.map.add(new LivingRoom());
+        //TODO: add other rooms
         roomIndex = 0;
 
         this.strength = strength;
@@ -57,7 +62,6 @@ public class Character implements Serializable {
     public Character(String name) {
 
         this(name, 10, 10, 10, 10, 10, 10, 0);
-        roomIndex = 0;
     }
 
     /**
@@ -65,7 +69,35 @@ public class Character implements Serializable {
      */
     public Character() {
         this("Anonymous");
-        roomIndex = 0;
+    }
+
+    /**
+     * @param index of room to retrieve
+     * @return the characters room map
+     */
+    public String getRoomName(int index) {
+        return map.get(index).getName();
+    }
+
+    /**
+     * @param index of desired room
+     * @return string description of room
+     */
+    public String getRoomDesc(int index) {
+        return map.get(index).getDesc();
+    }
+
+    /**
+     * instantiates the room map for new players
+     */
+    public void initMap() {
+        //TODO create commented room classes
+        map.add(0, new Outside());
+        //map.add(1, new Basement());
+        map.add(2, new LivingRoom());
+        //map.add(3, new Bedroom());
+        //map.add(4, new Kitchen());
+        //map.add(5, new Garage());
     }
 
     /**
@@ -214,6 +246,13 @@ public class Character implements Serializable {
      */
     public void addExp(int amount) {
         exp += amount;
+    }
+
+    /**
+     * @param index sets characters current room index
+     */
+    public void setIndex (int index) {
+        roomIndex = index;
     }
 
 }

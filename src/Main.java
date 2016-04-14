@@ -13,10 +13,7 @@ public class Main {
 	 * @param
 	 */
 	public static void initGame(){
-		
-		Items.populate();
 		Saves.readScores();
-		Rooms.initRooms();
 
 		//control
 	}

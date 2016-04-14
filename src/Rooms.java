@@ -8,25 +8,39 @@ import java.util.ArrayList;
  * Rooms can be accessed via the gameMap list. 
  * Created by dustinrosebery on 4/10/16.
  */
-public class Rooms implements Serializable{
+public abstract class Rooms implements Serializable{
 
-    String name;
-    String description;
+    String name = "";
+    String description = "";
     ArrayList<Items> roomItems = new ArrayList<Items>();
-
-    public static LinkedList<Rooms> gameMap = new LinkedList<Rooms>();
 
         // add rooms to map
 
-    Rooms(){}
+    Rooms() {}
+
+    //TODO: public void entry()     -- checks room flags and display flag messages
 
     /**
-     * Sets up the rooms into the list. Call when launching game
+     * @return name of current room
      */
-    static void initRooms(){
+    public String getName() { return name;}
 
-        gameMap.addFirst(new Outside());
-    }
+    /**
+     * @return description of room
+     */
+    public String getDesc() { return description; }
+
+    /**
+     * sets the inherited room names
+     * @param name of room
+     */
+    public static void setName (String name) { name = name; }
+
+    /**
+     * sets inherited room description
+     * @param description of room
+     */
+    public static void setDesc (String description) { description = description; }
 
 
 }

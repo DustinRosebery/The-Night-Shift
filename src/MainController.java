@@ -123,7 +123,11 @@ public class MainController implements Initializable {
         return character;
     }
 
-    //TODO: public void updateRoom(Room room);
+    public void updateRoom(Character myChar) {
+        descriptionField.setText("Room Description\n");
+        descriptionField.appendText(myChar.getRoomName(myChar.index()) + "\n" + myChar.getRoomDesc(myChar.index()));
+    }
+
 
     /**
      * Animates a dice roll and prevents commands from being interpreted while doing so
@@ -191,11 +195,11 @@ public class MainController implements Initializable {
         }, input -> {
             boolean handled;
             if (handled = input.toString().equalsIgnoreCase("help"))
-                write("clear\t\t\t\t\t\t\tRemoves past command history\n" +
+                write("clear\t\t\t\t\t\tRemoves past command history\n" +
                         "exit\t\t\t\t\t\t\tLeaves the game\n" +
                         "save\t\t\t\t\t\t\tSaves the character\n" +
                         "level <skill> <amount>\t\t\tLevels your character using available experience points\n" +
-                        "You must discover the commands that will get you through the house.");
+                        "\nYou must discover the commands that will get you through the house.");
             return handled;
 
         }, input -> {
@@ -238,6 +242,61 @@ public class MainController implements Initializable {
                 }
                 updateCharacter(character);
                 return handled;
+        }, input -> {                                       // basic movement between rooms according to the room map
+            boolean handled = false;
+            String[] command = input.toString().split(" ");
+            String[] words = {"go", "goto", "sneak"};
+            boolean firstCheck = false;
+            for (int wordsIndex = 0; wordsIndex < words.length; wordsIndex++) {
+                if (handled = command[0].equalsIgnoreCase(words[wordsIndex]) && !firstCheck) {
+                    for (int cmdIndex = 0; cmdIndex < command.length; cmdIndex++) {
+                        int thisIndex = character.index();
+                        boolean checked = false;
+                        if (command[cmdIndex].equalsIgnoreCase("kitchen") && !checked) {
+                            if (thisIndex == 2 || thisIndex == 5 || thisIndex == 3) {
+                                character.setIndex(4);
+                                checked = true;
+                            } else
+                                write("Where do you want to go?");
+                        } else if (command[cmdIndex].equalsIgnoreCase("living") && !checked) {
+                            if (thisIndex == 1 || thisIndex == 3 || thisIndex == 4) {
+                                character.setIndex(2);
+                                checked = true;
+                            } else
+                                write("How do you plan on getting there?");
+                        } else if (command[cmdIndex].equalsIgnoreCase("bed") || command[cmdIndex].equalsIgnoreCase("bedroom") && !checked) {
+                            if (thisIndex == 2 || thisIndex == 4) {
+                                character.setIndex(3);
+                                checked = true;
+                            } else
+                                write("You can't go there from here.");
+                        } else if (command[cmdIndex].equalsIgnoreCase("basement") && !checked) {
+                            if (thisIndex == 2 || thisIndex == 5) {
+                                character.setIndex(1);
+                                checked = true;
+                            } else
+                                write("Try another room.");
+                        } else if (command[cmdIndex].equalsIgnoreCase("garage") && !checked) {
+                            if (thisIndex == 1 || thisIndex == 4) {
+                                character.setIndex(5);
+                                checked = true;
+                            } else
+                                write("You'll have to trying getting there from a different place.");
+                        }
+                        if (checked)
+                            updateRoom(character);
+                    }
+                }
+            }
+            return handled;
+        }, input -> {
+            boolean handled;
+            if (handled = input.toString().equals("tp admin")) {
+                character.setIndex(1);
+                System.out.println("Character index after command: " + character.index());
+                updateRoom(character);
+            }
+            return handled;
         });
     }
 
