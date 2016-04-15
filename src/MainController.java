@@ -1,5 +1,4 @@
 import javafx.animation.*;
-import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.TextArea;
@@ -7,7 +6,6 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
-import javafx.scene.input.ScrollEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 import javafx.util.Duration;
@@ -279,56 +277,60 @@ public class MainController implements Initializable {
 
                         if (command[cmdIndex].equalsIgnoreCase("kitchen") && !checked) {
                             if (room == livingroom || room == garage || room == bedroom) {
+                                Game.exitRoom(character);
                                 character.setIndex(kitchen);
                                 checked = true;
-                                write (character.currentRoom().exits());;
+                                Game.enterRoom(character);
                             } else
                                 write( navErrors[Dice.rand(error)] );
 
                         } else if (command[cmdIndex].equalsIgnoreCase("living") || command[cmdIndex].equalsIgnoreCase("livingroom") && !checked) {
                             if (room == basement || room == bedroom || room == kitchen) {
+                                Game.exitRoom(character);
                                 character.setIndex(livingroom);
                                 checked = true;
-                                write (character.currentRoom().exits());;
+                                Game.enterRoom(character);
                             } else
                                 write( navErrors[Dice.rand(error)] );
 
                         } else if (command[cmdIndex].equalsIgnoreCase("bed") || command[cmdIndex].equalsIgnoreCase("bedroom") && !checked) {
                             if (room == livingroom || room == kitchen) {
+                                Game.exitRoom(character);
                                 character.setIndex(bedroom);
                                 checked = true;
-                                write (character.currentRoom().exits());
+                                Game.enterRoom(character);
                             }
                             else
                                 write( navErrors[Dice.rand(error)] );
 
                         } else if (command[cmdIndex].equalsIgnoreCase("basement") || command[cmdIndex].equalsIgnoreCase("stairs") && !checked) {
                             if (room == garage || room == livingroom) {
+                                Game.exitRoom(character);
                                 character.setIndex(basement);
                                 checked = true;
-                                write (character.currentRoom().exits());
+                                Game.enterRoom(character);
                             } else
                                 write( navErrors[Dice.rand(error)] );
 
                         } else if (command[cmdIndex].equalsIgnoreCase("garage") && !checked) {
                             if (room == 1 || room == 4) {
+                                Game.exitRoom(character);
                                 character.setIndex(5);
                                 checked = true;
-                                write (character.currentRoom().exits());
+                                Game.enterRoom(character);
                             } else
                                 write( navErrors[Dice.rand(error)] );
 
                         } else if (command[cmdIndex].equalsIgnoreCase("inside") && !checked) {          // for testing
                             if (room == 0) {
+                                Game.exitRoom(character);
                                 character.setIndex(2);
                                 checked = true;
-                                write (character.currentRoom().exits());
+                                Game.enterRoom(character);
                             } else
                                 write("You're already inside...");
 
                         }
-                        if (checked)
-                            updateRoom(character);
                     }
                 }
             }

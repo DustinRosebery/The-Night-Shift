@@ -77,14 +77,18 @@ public class Game extends Application {
      * Used to hold room events. It runs every time a character enters the room.
      * @param character - uses input character room object for any room state change
      */
-    public void roomEntry(Character character) {}
-    //TODO
+    public static void enterRoom(Character character) {
+        controller.write (character.currentRoom().exits());
+        //TODO add room control
+        controller.updateRoom(character);
+    }
+
 
     /**
      * Similar to enterRoom this method holds room events, and runs every time the player leaves a room
      * @param character
      */
-    public void exitRoom(Character character) {}
+    public static void exitRoom(Character character) {}
     //TODO
 
     public static void main(String... args) {
