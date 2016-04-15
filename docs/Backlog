@@ -1,22 +1,27 @@
 Feature Backlog:
 
-- Develop Story / Game Rules
-- Creative tutorial
+Sprint 3: In-Progress 
+1. Implement individual rooms
+2. Implement Skill checks
+3. Implement leaderboard
+4. Delete Character
+5. Award Experience
+6. Build Executable
+7. Test Manual/JUnit
 
-- Character and Inventory 
-      - implement Character persistance 
-- High-Scores / leaderboard
-      - implement leaderboard persistance
-- Illustrate / develop / Integrate GUI
-- Design and implement individual rooms
-      - Unique instances in each room to roll vs skill to find,avoid,escape,succeed 
-- Random Dice generator class for skill checks
-- Create Item list / weight system
-- Experience system / point allocation
-- Processing of variable user input
+Sprint 2: Completed
+1. Integrate GUI --> Done
+2. Dice Generator --> Done
+3. Character and Inventory --> Done
+4. Character Persistence --> Done
+5. Item List --> Done
+6. Exp System --> Done
+7. Basic Command --> Done
+8. Basic Navigation --> Done
 
-- Consider and Design JUnit tests
-- Create JDocs / Instruction documentation
+Sprint 1: Completed
+1. Documentation --> Done
+2. Requirements --> Done
 
 
 
