@@ -1,6 +1,8 @@
 ##### Misc Files #####
 *.ser
-
+github_settings.xml
+gradle.run.settings.xml
+vcs.xml
 
 ##### Eclipse Files #####
 
