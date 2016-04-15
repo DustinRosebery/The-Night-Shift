@@ -14,8 +14,8 @@ import java.io.IOException;
 
 /**
  * Sets up the JavaFX 'stage'
- * TODO: Merge this with current Main
- * @author Connor Nelson
+ * TODO: implement enterRoom and exitRoom
+ * @author Connor Nelson, Dustin Rosebery
  */
 
 public class Game extends Application {
@@ -46,8 +46,7 @@ public class Game extends Application {
         startStage.show();
     }
 
-    // TODO: This seems "bad" -- it technically gives god powers to EVERY class to make UI Changes, which is a poor design
-    // TODO: Think of a better design pattern
+    // TODO: possibly make controller protected
     public static MainController getController() {
         return controller;
     }
@@ -57,7 +56,7 @@ public class Game extends Application {
      * @param character being played
      */
     public static void startGame(Character character) {
-        //Items.populate();
+        Items.populate();
         character.initMap();
         controller.updateRoom(character);
         controller.write ("Try going inside");
@@ -68,13 +67,32 @@ public class Game extends Application {
      * @param character currently being played
      */
     public static void loadGame(Character character) {
-        //Items.populate();
+        Items.populate();
         controller.updateRoom(character);
         if (character.index() == 0)
             controller.write ("try going inside");
     }
 
+    /**
+     * Used to hold room events. It runs every time a character enters the room.
+     * @param character - uses input character room object for any room state change
+     */
+    public static void enterRoom(Character character) {
+        controller.write (character.currentRoom().exits());
+        //TODO add room control
+        controller.updateRoom(character);
+    }
+
+
+    /**
+     * Similar to enterRoom this method holds room events, and runs every time the player leaves a room
+     * @param character
+     */
+    public static void exitRoom(Character character) {}
+    //TODO
+
     public static void main(String... args) {
         launch(args);
     }
+
 }

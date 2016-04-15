@@ -14,7 +14,8 @@ import java.util.Scanner;
  * ex; remote_controller 10 0.5
  */
 public class Items implements Serializable{
-	
+
+	private static final String PATH = "data/items.txt";
 	private static final long serialVersionUID = 1l;
 	static int debugPopulate = 0; // set to 1 for input list print
 	
@@ -47,7 +48,7 @@ public class Items implements Serializable{
 	static void populate(){
 		
 		try{
-			 Scanner scan = new Scanner(new File("items.txt"));
+			 Scanner scan = new Scanner(new File(PATH));
 			 scan.useDelimiter(" ");
 			 String name;
 			 double itemWeight;

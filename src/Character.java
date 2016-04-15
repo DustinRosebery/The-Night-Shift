@@ -40,7 +40,7 @@ public class Character implements Serializable {
         inventory = new Inventory();
         leaderboard = new LeaderBoard();
 
-        this.map = new ArrayList<Rooms>();
+        map = new ArrayList<Rooms>();
         roomIndex = 0;
 
         this.strength = strength;
@@ -103,6 +103,49 @@ public class Character implements Serializable {
         return inventory.getItem(index);
     }
 
+    /**
+     * @return character room at current index
+     */
+    public Rooms currentRoom() {
+        return map.get(this.index());
+    }
+
+    /**
+     * performs a hidden roll against a specified stat
+     * @param stat to check
+     * @return true on success
+     */
+    public boolean skillCheck (String stat) {
+        boolean conclusion = false;
+
+        int roll = Dice.roll();
+        if (stat.compareTo("strength") == 0) {
+            if (roll <= strength)
+                conclusion = true;
+        }
+        else if (stat.compareTo("intelligence") == 0) {
+            if (roll <= intelligence)
+                conclusion = true;
+        }
+        else if (stat.compareTo("reflex") == 0) {
+            if (roll <= reflex)
+                conclusion = true;
+        }
+        else if (stat.compareTo("perception") == 0) {
+            if (roll <= perception)
+                conclusion = true;
+        }
+        else if (stat.compareTo("dexterity") == 0) {
+            if (roll <= dexterity)
+                conclusion = true;
+        }
+        else if (stat.compareTo("luck") == 0) {
+            if (roll <= luck)
+                conclusion = true;
+        }
+
+        return conclusion;
+    }
 
     /**
      * @return Name

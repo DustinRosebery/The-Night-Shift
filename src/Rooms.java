@@ -12,14 +12,22 @@ public abstract class Rooms implements Serializable{
 
     String name = "";
     String description = "";
-    String exits = ""; // shows the possible room exits to be written to history
-    ArrayList<Items> roomItems = new ArrayList<Items>();
+    String exits = ""; // shows the possible room exits to be written to the GUI (historyField)
 
-        // add rooms to map
+    /**
+     * Room Map:
+     *
+     * 0    outside
+     * 1    basement
+     * 2    livingroom
+     * 3    bedroom
+     * 4    kitchen
+     * 5    garage
+     */
 
     Rooms() {}
 
-    //TODO: public void entry()     -- checks room flags and display flag messages
+
 
     /**
      * @return name of current room
@@ -32,16 +40,8 @@ public abstract class Rooms implements Serializable{
     public String getDesc() { return description; }
 
     /**
-     * sets the inherited room names
-     * @param name of room
+     * @return room exits
      */
-    public static void setName (String name) { name = name; }
-
-    /**
-     * sets inherited room description
-     * @param description of room
-     */
-    public static void setDesc (String description) { description = description; }
-
+    public String exits() { return exits; }
 
 }
