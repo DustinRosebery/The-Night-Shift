@@ -103,6 +103,25 @@ public class Character implements Serializable {
         return inventory.getItem(index);
     }
 
+    /**
+     * @return character room at current index
+     */
+    public Rooms currentRoom() {
+        return map.get(this.index());
+    }
+
+    /**
+     * performs a hidden roll against a specified stat
+     * @param stat to check
+     * @return true on success
+     */
+    public boolean skillCheck (String stat) {
+        boolean conclusion = false;
+
+        //TODO: implement method
+
+        return conclusion;
+    }
 
     /**
      * @return Name

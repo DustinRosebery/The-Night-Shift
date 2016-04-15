@@ -2,7 +2,7 @@ import java.io.*;
 import java.util.ArrayList;
 
 /**
- * Saves uses serialization and IO streams to write/read characters to/from the default workspace
+ * Saves uses serialization and IO streams to write/read characters to/from file
  * @author dustinrosebery, Connor Nelson
  *
  */
@@ -14,7 +14,14 @@ public final class Saves {
      * Saves is a static class--it should not be instantiated by anyone
      */
     private Saves() {};
-    
+
+    /**
+     * load room description for input room name
+     * @param room
+     * @return description string
+     */
+    //TODO: public static loadDescription(String "room")
+
     /**
      * Saves created characters to a .ser file in the data folder.
      * @param character - Character object to be written to file
@@ -67,8 +74,7 @@ public final class Saves {
     
     /**
      * Saves the LeaderBoard static class ArrayList containing all recorded scores
-     * @param savedScores
-     * @param name
+     * @param savedScores leader
      */
     static void writeScores(ArrayList<LeaderBoard> savedScores){
 

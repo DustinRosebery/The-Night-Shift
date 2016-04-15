@@ -179,7 +179,7 @@ public class MainController implements Initializable {
     /**
      * Sets up the interpreter with basic commands
      */
-    // TODO: implement a look function to write room exits
+    // TODO: Remove default response, but instead suggest the help menu after several failed commands. if feasible
     private void initializeInterpreter() {
         commandsAllowed = true;
 
@@ -211,6 +211,7 @@ public class MainController implements Initializable {
             if (handled = input.toString().equalsIgnoreCase("roll"))
                 rollDice();
             return handled;
+
         }, input -> {
             boolean handled;
             if (handled = input.toString().equalsIgnoreCase("clear"))
@@ -225,7 +226,7 @@ public class MainController implements Initializable {
             }
             return handled;
 
-        }, input -> {
+        }, input -> {                                             // exp usage
                 boolean handled;
                 String[] command = input.toString().split(" ");
                 int amount = 0;
@@ -251,67 +252,88 @@ public class MainController implements Initializable {
                 }
                 updateCharacter(character);
                 return handled;
-        }, input -> {                                       // basic movement between rooms according to the room map
-            boolean handled;
-            String[] command = input.toString().split(" ");
-            String[] words = {"go", "goto", "sneak"};
 
-            for (int wordsIndex = 0; wordsIndex < words.length; wordsIndex++) {
-                if (handled = command[0].equalsIgnoreCase(words[wordsIndex])) {
-                    boolean checked = false;
+        },  //TODO: Write room exits, move room updates to enterRoom and exitRoom methods in Game class
+
+                input -> {                                       // basic movement between rooms according to the room map
+            boolean handled = false;
+            boolean checked = false;
+            int outside = 0;
+            int basement = 1;
+            int livingroom = 2;
+            int bedroom = 3;
+            int kitchen = 4;
+            int garage = 5;
+            String[] command = input.toString().split(" ");
+            String[] navWords = {"go", "goto", "sneak"};
+            String[] navErrors = {"Where do you want to go?","How do you plan on getting there?",
+                    "You can't go there from here.","You'll have to try a different route.",
+                    "Try another room.","You can't go that way.","That seems impossible"};
+            int error = navErrors.length;
+
+            for (int wordsIndex = 0; wordsIndex < navWords.length; wordsIndex++) {
+                if (handled = (handled || command[0].equalsIgnoreCase(navWords[wordsIndex]))) {
 
                     for (int cmdIndex = 0; cmdIndex < command.length; cmdIndex++) {
-                        int thisIndex = character.index();
+                        int room = character.index();
 
                         if (command[cmdIndex].equalsIgnoreCase("kitchen") && !checked) {
-                            if (thisIndex == 2 || thisIndex == 5 || thisIndex == 3) {
-                                character.setIndex(4);
+                            if (room == livingroom || room == garage || room == bedroom) {
+                                character.setIndex(kitchen);
                                 checked = true;
-                                write ("you see: the bedroom, garage, and living room");
+                                write (character.currentRoom().exits());;
                             } else
-                                write("Where do you want to go?");
-                        } else if (command[cmdIndex].equalsIgnoreCase("living") && !checked) {
-                            if (thisIndex == 1 || thisIndex == 3 || thisIndex == 4) {
-                                character.setIndex(2);
+                                write( navErrors[Dice.rand(error)] );
+
+                        } else if (command[cmdIndex].equalsIgnoreCase("living") || command[cmdIndex].equalsIgnoreCase("livingroom") && !checked) {
+                            if (room == basement || room == bedroom || room == kitchen) {
+                                character.setIndex(livingroom);
                                 checked = true;
-                                write ("you see the basement, kitchen, and bedroom");
+                                write (character.currentRoom().exits());;
                             } else
-                                write("How do you plan on getting there?");
+                                write( navErrors[Dice.rand(error)] );
+
                         } else if (command[cmdIndex].equalsIgnoreCase("bed") || command[cmdIndex].equalsIgnoreCase("bedroom") && !checked) {
-                            if (thisIndex == 2 || thisIndex == 4) {
-                                character.setIndex(3);
+                            if (room == livingroom || room == kitchen) {
+                                character.setIndex(bedroom);
                                 checked = true;
-                                write ("you see: the living room, and the kitchen");
-                            } else
-                                write("You can't go there from here.");
-                        } else if (command[cmdIndex].equalsIgnoreCase("basement") && !checked) {
-                            if (thisIndex == 2 || thisIndex == 5) {
-                                character.setIndex(1);
+                                write (character.currentRoom().exits());
+                            }
+                            else
+                                write( navErrors[Dice.rand(error)] );
+
+                        } else if (command[cmdIndex].equalsIgnoreCase("basement") || command[cmdIndex].equalsIgnoreCase("stairs") && !checked) {
+                            if (room == garage || room == livingroom) {
+                                character.setIndex(basement);
                                 checked = true;
-                                write ("you see: the garage, and the living room");
+                                write (character.currentRoom().exits());
                             } else
-                                write("Try another room.");
+                                write( navErrors[Dice.rand(error)] );
+
                         } else if (command[cmdIndex].equalsIgnoreCase("garage") && !checked) {
-                            if (thisIndex == 1 || thisIndex == 4) {
+                            if (room == 1 || room == 4) {
                                 character.setIndex(5);
                                 checked = true;
-                                write ("you see: the kitchem, and the basement");
+                                write (character.currentRoom().exits());
                             } else
-                                write("You'll have to trying getting there from a different place.");
+                                write( navErrors[Dice.rand(error)] );
+
                         } else if (command[cmdIndex].equalsIgnoreCase("inside") && !checked) {          // for testing
-                            if (thisIndex == 0) {
+                            if (room == 0) {
                                 character.setIndex(2);
                                 checked = true;
-                                write ("you see: the kitchen, bedroom, and basement");
+                                write (character.currentRoom().exits());
                             } else
                                 write("You're already inside...");
+
                         }
                         if (checked)
                             updateRoom(character);
                     }
                 }
             }
-            handled = true;
+            if (!checked)
+                write( navErrors[Dice.rand(error)] );
             return handled;
         });
     }
