@@ -14,7 +14,7 @@ public class Outside extends Rooms {
                "\nThe Night Shift" +
                "\n" +
                "\nHere it is, the perfect one. Not the biggest, not the smallest, but the nicest by far. The grass is so well kept you think" +
-               "the biggest crime here would be to mess it up by walking on it, but then you remember the business at hand. You see two" +
+               "the biggest crime here would be to mess it up by walking on it, but then you remember the business at hand. You see two " +
                "obvious points of entry, the front door, and what looks like the bedroom window after taking a look from the shadows around" +
                "the house. What would you like to do?");
 
