@@ -16,6 +16,6 @@ public class Garage extends Rooms {
 	/** Constructor initializing the essentials */
 	Garage() {
 		name = ("Garage");
-		description = ("The door behinds you shuts. It's dark in here.");
+		description = Saves.loadDescription(name);
 	}
 }

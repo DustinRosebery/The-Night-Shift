@@ -1,5 +1,9 @@
 import java.io.*;
 import java.util.ArrayList;
+import java.util.Scanner;
+
+
+
 
 /**
  * Saves uses serialization and IO streams to write/read characters to/from file
@@ -8,7 +12,8 @@ import java.util.ArrayList;
  */
 public final class Saves {
 
-    private static final String PATH = "data/";
+    private static final String PATH = "data/rooms.txt";
+
 
     /**
      * Saves is a static class--it should not be instantiated by anyone
@@ -20,6 +25,49 @@ public final class Saves {
      * @param room
      * @return description string
      */
+    public static String loadDescription(String room) {
+
+        String ROOM = null;
+
+        if ((room.equals("Outside"))== true) {
+            ROOM = "data/outside.txt";
+        }
+
+        else if ((room.equals("Kitchen"))== true) {
+            ROOM = "data/kitchen.txt";
+        }
+
+        else if ((room.equals("Living Room"))== true) {
+            ROOM = "data/livingroom.txt";
+        }
+
+        else if ((room.equals("Bedroom"))== true) {
+            ROOM = "data/bedroom.txt";
+        }
+
+        else if ((room.equals("Basement"))== true) {
+            ROOM = "data/basement.txt";
+        }
+
+        else if ((room.equals("Garage"))== true) {
+            ROOM = "data/garage.txt";
+        }
+
+        String line = null;
+
+        try {
+            Scanner scan = new Scanner(new File(ROOM));
+
+            line = scan.nextLine();
+            return line;
+
+        }
+
+        catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+        return line;
+    }
     //TODO: public static loadDescription(String "room")
 
     /**

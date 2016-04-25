@@ -6,6 +6,6 @@ public class Basement extends Rooms {
     Basement() {
         name = "Basement";
 
-        description = "You are in the basement";
+        description = Saves.loadDescription(name);
     }
 }
