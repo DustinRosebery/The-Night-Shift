@@ -20,7 +20,6 @@ public class Garage extends Rooms {
 
 		description = Saves.loadDescription(name);
 
-		description = ("The door behinds you shuts. It's dark in here.");
 		exits = "basement - kitchen";
 	}
 }

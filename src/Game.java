@@ -76,7 +76,7 @@ public class Game extends Application {
     public static void loadGame(Character character) {
         Items.populate();
         currentCharacter = character;
-        controller.updateRoom(currentCharacter);
+        character.currentRoom().entry(character);
         if (currentCharacter.index() == 0)
             controller.write ("try going inside");
     }

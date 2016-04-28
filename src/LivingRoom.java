@@ -11,20 +11,31 @@ public class LivingRoom extends Rooms {
         name = ("Living Room");
 
         description = Saves.loadDescription((name));
-                /*("This room is by far the largest in the house with a chic, yet comfy modern decor. Two large windows with " +
-                        "curtains that hang to the floor line the wall next to the front door. The other wall houses A gigantic flat screen tv " +
-                        " hanging up over " +
-                        "a fancy entertainment center across from two gigantic leather couches and a large black rectangular coffee table. " +
-                        "Some tasteful artwork hangs on the far wall flanking what looks like a closet door. The stone tiled floors making moving " +
-                        "around quietly a bit more difficult.");*/
 
         exits = "You notice a door cracked open with some stairs leading down to what you assume is the basement, another door that you think " +
                 "you can hear someone snoring behind, and the archway leading into the kitchen.";
 
-        Interpreter interpreter = new Interpreter(input -> {
+    }
+
+    /**
+     * Runs when the living room is entered and gives the room control of the interpreter
+     * @param character
+     */
+    public void entry(Character character) {
+
+        state = 0;
+        description = Saves.loadDescription(name);
+
+        character.setIndex(roomIndex);
+        Game.getController().updateRoom(character);
+
+
+        Interpreter interpreter = new Interpreter(input -> {        // How the player picks up an item
             String[] args = ((String) input).split(" ");
-            if (args[0].equalsIgnoreCase("take")) {
+
+            if (args[0].equalsIgnoreCase("take") || args[0].equalsIgnoreCase("get") || args[0].equalsIgnoreCase("grab")) {         //
                 if (args.length >= 2) {
+
                     if (args[1].equalsIgnoreCase("Tablet")) {
                         if (Game.getCurrentCharacter().inventory().getList().contains(Items.itemList.get(1))) {
                             if (Game.getCurrentCharacter().skillCheck("intelligence")) {
@@ -38,9 +49,98 @@ public class LivingRoom extends Rooms {
                 }
             }
             return false;
+
+        }, input -> {                                  // basic movement between rooms according to the room map
+            boolean handled = false;
+            boolean checked = false;
+            int outside = 0;
+            int basement = 1;
+            int livingroom = 2;
+            int bedroom = 3;
+            int kitchen = 4;
+            int garage = 5;
+
+            String[] command = input.toString().split(" "); // splits input into a String array using space as a delimeter
+            String[] navWords = {"go", "goto", "sneak"};
+            String[] navErrors = {"Where do you want to go?", "How do you plan on getting there?",
+                    "You can't go there from here.", "You'll have to try a different route.",
+                    "Try another room.", "You can't go that way.", "That seems impossible"};
+
+            int error = navErrors.length;
+
+
+            for (int wordsIndex = 0; wordsIndex < navWords.length; wordsIndex++) {                 // matches first input command against
+                if (handled = (handled || command[0].equalsIgnoreCase(navWords[wordsIndex]))) {    // an array of different movement words
+
+                    for (int cmdIndex = 2; cmdIndex < command.length; cmdIndex++) {
+                        int room = character.index();
+
+                        if (command[cmdIndex].equalsIgnoreCase("kitchen") && !checked) {
+                            if (room == livingroom || room == garage || room == bedroom) {
+                                Game.exitRoom(character);
+                                character.setIndex(kitchen);
+                                checked = true;
+                                Game.enterRoom(character);
+                            } else
+                                Game.getController().write(navErrors[Dice.rand(error)]);
+
+                        } else if (command[cmdIndex].equalsIgnoreCase("living") || command[cmdIndex].equalsIgnoreCase("livingroom") && !checked) {
+                            if (room == basement || room == bedroom || room == kitchen) {
+                                Game.exitRoom(character);
+                                character.setIndex(livingroom);
+                                checked = true;
+                                Game.enterRoom(character);
+                            } else
+                                Game.getController().write(navErrors[Dice.rand(error)]);
+
+                        } else if (command[cmdIndex].equalsIgnoreCase("bed") || command[cmdIndex].equalsIgnoreCase("bedroom") && !checked) {
+                            if (room == livingroom || room == kitchen) {
+                                Game.exitRoom(character);
+                                character.setIndex(bedroom);
+                                checked = true;
+                                Game.enterRoom(character);
+                            } else
+                                Game.getController().write(navErrors[Dice.rand(error)]);
+
+                        } else if (command[cmdIndex].equalsIgnoreCase("basement") || command[cmdIndex].equalsIgnoreCase("stairs") && !checked) {
+                            if (room == garage || room == livingroom) {
+                                Game.exitRoom(character);
+                                character.setIndex(basement);
+                                checked = true;
+                                Game.enterRoom(character);
+                            } else
+                                Game.getController().write(navErrors[Dice.rand(error)]);
+
+                        } else if (command[cmdIndex].equalsIgnoreCase("garage") && !checked) {
+                            if (room == basement || room == kitchen) {
+                                Game.exitRoom(character);
+                                character.setIndex(5);
+                                checked = true;
+                                Game.enterRoom(character);
+                            } else
+                                Game.getController().write(navErrors[Dice.rand(error)]);
+
+                        } else if (command[cmdIndex].equalsIgnoreCase("inside") && !checked) {          // for testing
+                            if (room == 0) {
+                                Game.exitRoom(character);
+                                character.setIndex(2);
+                                checked = true;
+                                Game.enterRoom(character);
+                            } else
+                                Game.getController().write("You're already inside...");
+
+                        }
+                    }
+                }
+            }
+            if (!checked)
+                Game.getController().write(navErrors[Dice.rand(error)]);
+            return handled;
         });
 
         setInterpreter(interpreter);
+    } // end of entry
 
 }
-}
+
+

@@ -32,6 +32,7 @@ public class Outside extends Rooms {
       * @param character
      */
    public void entry(Character character) {
+       character.setIndex(roomIndex);
        int state = 0;
 
 
@@ -40,5 +41,6 @@ public class Outside extends Rooms {
        }
 
        loadDescription(state);
+       Game.getController().updateRoom(character);
    }
 }
