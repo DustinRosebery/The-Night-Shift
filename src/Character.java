@@ -13,8 +13,8 @@ public class Character implements Serializable {
     private Inventory inventory;                                // each character has their own inventory
     private LeaderBoard leaderboard;                            // and LeaderBoard objects
     private ArrayList<Rooms> map;                               // and room map
-    private int roomIndex;
 
+    private int roomIndex;
     private int strength;
     private int reflex;
     private int intelligence;
@@ -50,6 +50,25 @@ public class Character implements Serializable {
         this.dexterity = dexterity;
         this.luck = luck;
         this.exp = exp;
+    }
+
+    public void addItem(Items item) {
+
+        if (inventory.getWeight() + item.getWeight() <= strength * 10) {
+            inventory.add(item);
+
+            int value = item.getValue();
+            int exp = value / 20;
+
+            if (exp < 1)
+                exp = 1;
+            else if (exp > 3)
+                exp =3;
+
+            Game.getController().updateCharacter(this);
+        }
+        else
+            Game.getController().write("You must increase your strength to carry that much weight");
     }
 
     /**
@@ -118,7 +137,7 @@ public class Character implements Serializable {
     public boolean skillCheck (String stat) {
         boolean conclusion = false;
 
-        int roll = Dice.roll();
+        int roll = Game.getController().rollDice();
         if (stat.compareTo("strength") == 0) {
             if (roll <= strength)
                 conclusion = true;

@@ -20,6 +20,7 @@ import java.io.IOException;
 
 public class Game extends Application {
 
+    private static Character currentCharacter;
     private static MainController controller;
 
     @Override
@@ -57,9 +58,15 @@ public class Game extends Application {
      */
     public static void startGame(Character character) {
         Items.populate();
-        character.initMap();
-        controller.updateRoom(character);
+        currentCharacter = character;
+        currentCharacter.initMap();
+        controller.updateRoom(currentCharacter);
         controller.write ("Try going inside");
+    }
+
+
+    public static Character getCurrentCharacter() {
+        return currentCharacter;
     }
 
     /**
@@ -68,8 +75,9 @@ public class Game extends Application {
      */
     public static void loadGame(Character character) {
         Items.populate();
-        controller.updateRoom(character);
-        if (character.index() == 0)
+        currentCharacter = character;
+        controller.updateRoom(currentCharacter);
+        if (currentCharacter.index() == 0)
             controller.write ("try going inside");
     }
 
@@ -78,7 +86,7 @@ public class Game extends Application {
      * @param character - uses input character room object for any room state change
      */
     public static void enterRoom(Character character) {
-        controller.write (character.currentRoom().exits());
+        controller.write (currentCharacter.currentRoom().exits());
         //TODO add room control
         controller.updateRoom(character);
     }

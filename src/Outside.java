@@ -4,6 +4,8 @@
 public class Outside extends Rooms {
 
    Outside(){
+       roomIndex = 0;
+
        name = ("Outside");
 
        //Saves.loadDescription(name);
@@ -23,4 +25,20 @@ public class Outside extends Rooms {
                "the house. What would you like to do?");*/
 
    };
+
+
+    /**
+     * runs whenever a character enters the room
+      * @param character
+     */
+   public void entry(Character character) {
+       int state = 0;
+
+
+       if (character.skillCheck("perception")) {
+           state = 1;
+       }
+
+       loadDescription(state);
+   }
 }

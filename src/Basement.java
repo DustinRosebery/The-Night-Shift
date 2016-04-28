@@ -4,8 +4,15 @@
 public class Basement extends Rooms {
 
     Basement() {
-        name = "Basement";
+        roomIndex = 1;
 
+        name = "Basement";
+        
         description = Saves.loadDescription(name);
+
+        description = "You are in the basement";
+
+        exits = "Garage - Living Room";
+
     }
 }

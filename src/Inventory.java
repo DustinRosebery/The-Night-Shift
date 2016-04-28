@@ -31,6 +31,8 @@ public class Inventory implements Serializable{
 	public void add(Items item){
 		count++;
 		myList.add(count, item);
+		calcValue();
+		calcWeight();
 	}
 	
 	/**
@@ -41,6 +43,14 @@ public class Inventory implements Serializable{
 	public Items getItem(int index){
 		
 		return myList.get(index);
+	}
+
+	public ArrayList<Items> getList() {
+		return myList;
+	}
+
+	public double getWeight() {
+		return totalWeight;
 	}
 	
 	/**

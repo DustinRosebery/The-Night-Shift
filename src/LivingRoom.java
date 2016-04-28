@@ -3,7 +3,11 @@
  */
 public class LivingRoom extends Rooms {
 
+
+
     LivingRoom() {
+        roomIndex = 2;
+
         name = ("Living Room");
 
         description = Saves.loadDescription((name));
@@ -16,5 +20,27 @@ public class LivingRoom extends Rooms {
 
         exits = "You notice a door cracked open with some stairs leading down to what you assume is the basement, another door that you think " +
                 "you can hear someone snoring behind, and the archway leading into the kitchen.";
-    }
+
+        Interpreter interpreter = new Interpreter(input -> {
+            String[] args = ((String) input).split(" ");
+            if (args[0].equalsIgnoreCase("take")) {
+                if (args.length >= 2) {
+                    if (args[1].equalsIgnoreCase("Tablet")) {
+                        if (Game.getCurrentCharacter().inventory().getList().contains(Items.itemList.get(1))) {
+                            if (Game.getCurrentCharacter().skillCheck("intelligence")) {
+                                Game.getCurrentCharacter().addItem(Items.itemList.get(1));
+                                Game.getController().write("You take the tablet successfully");
+                            } else {
+                                Game.getController().write("You failed!");
+                            }
+                        }
+                    }
+                }
+            }
+            return false;
+        });
+
+        setInterpreter(interpreter);
+
+}
 }

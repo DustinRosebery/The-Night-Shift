@@ -60,8 +60,8 @@ public class MainController implements Initializable {
                 write(command);
 
                 if (!interpreter.interpret(command))
-                    //TODO: if(!Room.getInterpreter().interpret(command));
-                    write("Unknown command: Type \"help\" for help regarding commands.");
+                    if(!character.currentRoom().getInterpreter().interpret(command))
+                        write("Unknown command: Type \"help\" for help regarding commands.");
             }
         });
 
@@ -123,11 +123,11 @@ public class MainController implements Initializable {
 
     /**
      * uses characters current room index to set the room description
-     * @param myChar current character
+     * @param character
      */
-    public void updateRoom(Character myChar) {
+    public void updateRoom(Character character) {
         descriptionField.setText("Room Description\n");
-        descriptionField.appendText(myChar.getRoomName(myChar.index()) + "\n\n" + myChar.getRoomDesc(myChar.index()));
+        descriptionField.appendText(character.getRoomName(character.index()) + "\n\n" + character.getRoomDesc(character.index()));
     }
 
     /**

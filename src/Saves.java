@@ -21,10 +21,11 @@ public final class Saves {
     private Saves() {};
 
     /**
-     * load room description for input room name
+     * load room description for input roomIndex and state from file
      * @param room
      * @return description string
      */
+
     public static String loadDescription(String room) {
 
         String ROOM = null;
@@ -69,6 +70,12 @@ public final class Saves {
         return line;
     }
     //TODO: public static loadDescription(String "room")
+
+    public static String loadDescription(int roomIndex, int state) {
+        return "";
+        //TODO: implement this function
+    }
+
 
     /**
      * Saves created characters to a .ser file in the data folder.
