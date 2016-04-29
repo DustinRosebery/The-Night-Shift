@@ -22,9 +22,9 @@ Katana 100 10
 Keyboard 30 1
 Diamond_ring 2000 .5
 Golden_pot 100 10
-Roomba 50 5
-SamsungTV 500 20
-PlayStation_4 250 3
-Painting 20 1
-Fitness_Equipment 120 .2
+Roomba 590 12.9
+SamsungTV 1500 42
+PlayStation_4 350 4
+Painting 2000 1.5
+Fitness_Equipment 1200 100
 Crowbar 25 5
