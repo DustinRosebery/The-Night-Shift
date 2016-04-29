@@ -15,7 +15,7 @@ public class LivingRoom extends Rooms {
         exits = "You notice a door cracked open with some stairs leading down to what you assume is the basement, another door that you think " +
                 "you can hear someone snoring behind, and the archway leading into the kitchen.";
 
-        Interpreter interpreter = new Interpreter(input -> {        // How the player picks up an item
+        Interpreter interpreter = new Interpreter((Command)(input) -> {        // How the player picks up an item
             String[] args = ((String) input).split(" ");
             boolean handled = false;
 
@@ -62,7 +62,7 @@ public class LivingRoom extends Rooms {
             }
             return handled;
 
-        }, input -> {
+        }, (Command)(input) -> {
             String[] args = ((String) input).split(" ");
             boolean handled = false;
 
