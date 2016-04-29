@@ -1,5 +1,9 @@
 /**
  * @author Kunal Lanjewar
+ * This is Bedroom controller for Dice rolling game.
+ * So, you finally made it to the bedroom. Good for you, because there is no one here. 
+ * 'take' as much stuff as you can before you get caught!
+ * 
  */
 public class Bedroom extends Rooms {
 
