@@ -35,11 +35,6 @@ public class Outside extends Rooms {
        character.setIndex(roomIndex);
        int state = 0;
 
-
-       if (character.skillCheck("perception")) {
-           state = 1;
-       }
-
        loadDescription(state);
        Game.getController().updateRoom(character);
    }

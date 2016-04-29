@@ -32,7 +32,7 @@ public class LeaderController implements Initializable {
         ArrayList<String> stats = new ArrayList<String>();
         for (Character character : characters)
             stats.add(character.name() + " - $" + character.inventory().getValue() + " - Level: " +
-                    (character.strength() + character.dexterity() + character.intelligence() +
+                    (-49 + character.strength() + character.dexterity() + character.intelligence() +
                             character.intelligence() + character.perception() + character.exp()) +
                     (character.isCaught() ? " - CAUGHT" : "") +
                     (character.isEscaped() ? " - ESCAPED" : ""));
