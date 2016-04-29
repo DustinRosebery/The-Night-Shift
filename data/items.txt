@@ -26,3 +26,4 @@ Roomba 50 5
 SamsungTV 500 20
 PlayStation_4 250 3
 Painting 20 1
+Fitness_Equipment 120 .2
