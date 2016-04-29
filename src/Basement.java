@@ -1,3 +1,5 @@
+import java.io.Serializable;
+
 /**
  * @author Connor Nelson
  */
@@ -10,7 +12,7 @@ public class Basement extends Rooms {
         description = Saves.loadDescription(name);
         exits = "Garage - Living Room";
 
-        Interpreter interpreter = new Interpreter(input -> {
+        Interpreter interpreter = new Interpreter((Command)(input) -> {
             boolean handled = false;
             String[] args = input.toString().split(" ");
 
@@ -66,7 +68,17 @@ public class Basement extends Rooms {
                 }
 
             } else if (handled = args[0].equalsIgnoreCase("look")) {
-
+                if (input.toString().contains("armor")) {
+                    Game.getController().write("You notice a fancy Japanese sword");
+                } else if (input.toString().contains("doll")) {
+                    Game.getController().write("You notice some nice jewelery");
+                } else if (input.toString().contains("furnace")) {
+                    Game.getController().write("You notice some expensive looking pots and pans");
+                } else if (input.toString().contains("vault")) {
+                    Game.getController().write("It's a vault...");
+                } else if (input.toString().contains("computer")) {
+                    Game.getController().write("Computer, mouse, keyboard, and monitor--what more could you need?");
+                }
             }
             return handled;
         });

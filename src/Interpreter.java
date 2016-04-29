@@ -1,4 +1,5 @@
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
@@ -6,7 +7,9 @@ import java.util.ArrayList;
  * @author Connor Nelson
  */
 
-public class Interpreter {
+public class Interpreter implements Serializable {
+
+    private static final long serialVersionUID = 1l; // required for serialization
 
     private ArrayList<Command> commands;
 

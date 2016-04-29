@@ -188,6 +188,7 @@ public class MainController implements Initializable {
                     Saves.writeCharacter(character);
                     System.out.println("[Autosave] The character was successfully saved.");
                 } catch (IOException e) {
+                    e.printStackTrace();
                     System.out.println("[Autosave] The character could not be saved.");
                 }
             else

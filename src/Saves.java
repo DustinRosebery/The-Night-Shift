@@ -84,7 +84,7 @@ public final class Saves {
     public static void writeCharacter(Character character) throws IOException {
         String saveName = character.name() + ".ser";
 
-        FileOutputStream fileOutputStream = new FileOutputStream(PATH + saveName);
+        FileOutputStream fileOutputStream = new FileOutputStream(saveName);
         ObjectOutputStream objectOutputStream = new ObjectOutputStream(fileOutputStream);
         objectOutputStream.writeObject(character);
 

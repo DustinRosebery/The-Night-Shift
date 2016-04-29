@@ -10,6 +10,8 @@ import java.util.ArrayList;
  */
 public abstract class Rooms implements Serializable{
 
+    private static final long serialVersionUID = 1l; // required for serialization
+
     int roomIndex;                  // index of your room in the game map.
     int state;                      // keep track of the state of your room.
     String name = "";
