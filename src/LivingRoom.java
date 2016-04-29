@@ -6,7 +6,7 @@ public class LivingRoom extends Rooms {
 
 
     LivingRoom() {
-        roomIndex = 2;
+        roomIndex = 2; 
 
         name = ("Living Room");
 
@@ -50,10 +50,11 @@ public class LivingRoom extends Rooms {
                                 Game.getCurrentCharacter().addItem(Items.itemList.get(itemIndex));
                                 Game.getController().write("You take the " + name + " successfully");
                             }
-                            else {
-                                if (rollRequired) {
+                            else if (rollRequired) {
                                     Game.getController().handleFailure();
-                                }
+                            }
+                            else {
+                                Game.getCurrentCharacter().addItem(Items.itemList.get(itemIndex));
                             }
                         }
                     }
