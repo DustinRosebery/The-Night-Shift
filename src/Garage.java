@@ -1,5 +1,5 @@
 
-/** Garage. It has a car in it that can be stolen from or used for escape.
+/** Garage. It has a car in it that has a GPS inside of it.
  * The car keys are in the kitchen. There is a tool box with a crowbar and 
  * hammer that can be used to smash a car window. Or, you can find an old
  * wire hanger in some boxes to try to pick the lock. There are large outdoor
