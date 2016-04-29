@@ -11,6 +11,8 @@
  * It has something that you hang on the wall.
  * 
  */
+import java.io.Serializable;
+
 public class Bedroom extends Rooms {
 
     public Bedroom() {
@@ -38,7 +40,7 @@ public class Bedroom extends Rooms {
                     itemIndex = 24;
                     skill = "reflex";
                     name = "Roomba Vacuum Cleaner";
-                } else if (input.toString().contains("samsungtv")) {
+                } else if (input.toString().contains("tv")) {
                     validItem = true;
                     itemIndex = 25;
                     skill = "intelligence";
@@ -79,6 +81,18 @@ public class Bedroom extends Rooms {
             }
         }
         else if (handled = args[0].equalsIgnoreCase("explore")){
+
+            if (input.toString().contains("cleaning")) {
+                Game.getController().write("Looks like you found a fancy vacuum cleaner");
+            } else if (input.toString().contains("fun")) {
+                Game.getController().write("You see some cool gaming stuff");
+            } else if (input.toString().contains("entertainment")) {
+                Game.getController().write("you notice an expensive samsung device");
+            } else if (input.toString().contains("wall")) {
+                Game.getController().write("You see something on the wall");
+            } else if (input.toString().contains("fitness")) {
+                Game.getController().write("You see fitness rig?");
+            }
 
         }
         return handled;
