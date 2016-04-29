@@ -172,12 +172,7 @@ public class MainController implements Initializable {
 
     public void handleFailure() {
         write("You failed!");
-        if (character.skillCheck("luck")) {
-            write("You were lucky enough to escape your failure.");
-        } else {
-            character.setCaught(true);
-            write("You were caught.");
-        }
+        character.setEscaping(true);
     }
 
     /**
@@ -204,6 +199,27 @@ public class MainController implements Initializable {
             boolean handled;
             if (handled = character.isCaught()) {
                 write("This character was caught. Please create or load a different character.");
+            } else if (handled = character.isEscaped()) {
+                write("This character has escaped. Please create or load a different character.");
+            }
+            return handled;
+
+        }, input -> {
+            boolean handled;
+            if (handled = character.isEscaping()) {
+                if (input.toString().contains("escape")) {
+                    if (character.skillCheck("luck")) {
+                        character.setEscaping(false);
+                        character.setEscaped(true);
+                        write("You were lucky enough to escape your failure.");
+                    } else {
+                        character.setEscaping(false);
+                        character.setCaught(true);
+                        write("You were caught.");
+                    }
+                } else {
+                    write("You are currently escaping. Please type \'escape\' to attempt your retreat.");
+                }
             }
             return handled;
 

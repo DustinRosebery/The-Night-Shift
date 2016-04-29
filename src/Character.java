@@ -9,6 +9,8 @@ public class Character implements Serializable {
 
     private static final long serialVersionUID = 1l; // required for serialization
 
+    private boolean escaping;
+    private boolean escaped;
     private boolean caught;
 
     private String name;
@@ -38,6 +40,8 @@ public class Character implements Serializable {
      */
     public Character(String name, int strength, int reflex, int intelligence,
                      int perception, int dexterity, int luck, int exp) {
+        escaping = false;
+        escaped = false;
         caught = false;
 
         this.name = name;
@@ -318,5 +322,21 @@ public class Character implements Serializable {
 
     public void setCaught(boolean caught) {
         this.caught = caught;
+    }
+
+    public boolean isEscaping() {
+        return escaping;
+    }
+
+    public void setEscaping(boolean escaping) {
+        this.escaping = escaping;
+    }
+
+    public boolean isEscaped() {
+        return escaped;
+    }
+
+    public void setEscaped(boolean escaped) {
+        this.escaped = escaped;
     }
 }

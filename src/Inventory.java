@@ -78,13 +78,10 @@ public class Inventory implements Serializable{
 	 */
 	public void calcValue(){
 	
-		if (myList.isEmpty() != true){
-			
-			int index = 0;
+		if (!myList.isEmpty()){
 			totalValue = 0;
-			while (myList.get(index) != null){
-				totalValue = totalValue + myList.get(index).getValue();
-				index++;
+			for (Items item : myList) {
+				totalValue += item.getValue();
 			}
 		}
 	}
@@ -94,13 +91,10 @@ public class Inventory implements Serializable{
 	 */
 	public void calcWeight(){
 		
-		if (myList.isEmpty() != true){
-			
-			int index = 0;
+		if (!myList.isEmpty()){
 			totalWeight = 0;
-			while (myList.get(index) != null){
-				totalWeight = totalWeight + myList.get(index).getWeight();
-				index++;
+			for (Items item : myList) {
+				totalWeight += item.getWeight();
 			}
 		}
 	}
