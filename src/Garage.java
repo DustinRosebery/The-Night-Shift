@@ -12,7 +12,39 @@
  *
  */
 public class Garage extends Rooms {
-	
+
+	private static class Helper {
+
+		private boolean toolBoxOpen = false;
+		private boolean windowSmashed = false;
+		private boolean boxesMoved = false;
+
+		public void setToolBoxOpen(boolean toolBoxOpen) {
+			this.toolBoxOpen = toolBoxOpen;
+		}
+
+		public void setWindowSmashed(boolean windowSmashed) {
+			this.windowSmashed = windowSmashed;
+		}
+
+		public void setBoxesMoved(boolean boxesMoved) {
+			this.boxesMoved = boxesMoved;
+		}
+
+		public boolean isToolBoxOpen() {
+			return toolBoxOpen;
+		}
+
+		public boolean isWindowSmashed() {
+			return windowSmashed;
+		}
+
+		public boolean isBoxesMoved() {
+			return boxesMoved;
+		}
+
+	}
+
 	/** Constructor initializing the essentials */
 	Garage() {
 		roomIndex = 5;
@@ -20,19 +52,20 @@ public class Garage extends Rooms {
 
 		description = Saves.loadDescription(name);
 
-		exits = "There is a door into the house and another on the other side of the garage, slightly ajar with what look" +
-				" stairs that lead downwards.";
+		exits = "It's too dark to tell where we can go from here, other than where we came from. ";
 
-		Interpreter interpreter = new Interpreter(input -> {
+		final Helper help = new Helper();
+
+		Interpreter interpreter = new Interpreter((Command)(input) -> {
 			boolean handled = false;
 			String[] args = input.toString().split(" ");
-			boolean toolboxOpen = false;
-			boolean windowSmashed = false;
-			boolean boxesMoved = false;
+
 			if (handled = args[0].equalsIgnoreCase("open")) {
+
 				if (args.length >= 2) {
 					if (input.toString().contains("toolbox")) {
-						toolboxOpen = true;
+						help.setToolBoxOpen(true);
+						Game.getController().write("You opened the toolbox.");
 					} else {
 						Game.getController().write("What do you want to open? Try looking around.");
 					}
@@ -48,7 +81,7 @@ public class Garage extends Rooms {
 				String name = "";
 				if (args.length >= 2) {
 					if (input.toString().contains("crowbar")) {
-						if (toolboxOpen) {
+						if (help.isToolBoxOpen()) {
 							itemIndex = 29;
 							name = "crowbar";
 							Game.getCurrentCharacter().addItem(Items.itemList.get(itemIndex));
@@ -58,7 +91,7 @@ public class Garage extends Rooms {
 						}
 					}
 					else if (input.toString().contains("GPS")) {
-						if (windowSmashed) {
+						if (help.isWindowSmashed()) {
 							itemIndex = 17;
 							name = "GPS";
 							Game.getCurrentCharacter().addItem(Items.itemList.get(itemIndex));
@@ -69,7 +102,7 @@ public class Garage extends Rooms {
 						}
 					}
 					else if (input.toString().contains("cash") || input.toString().contains("money")) {
-						if (boxesMoved) {
+						if (help.isBoxesMoved()) {
 							itemIndex = 8;
 							name = "cash";
 							Game.getCurrentCharacter().addItem(Items.itemList.get(itemIndex));
@@ -101,8 +134,11 @@ public class Garage extends Rooms {
 			else if (handled = args[0].equalsIgnoreCase("turn")) {
 				if (args.length >= 3) {
 					if (input.toString().contains("on") && input.toString().contains("lights")) {
-						Game.getController().write("You turned on the lights. You now notice a shiny new car, some old " +
-								"rusty bikes, a toolbox, some speakers, and other miscellaneous boxes and common garage items.");
+						description = "You turned on the lights. You now notice a shiny new car, some old rusty bikes, a toolbox, some speakers, and other\n" +
+								"miscellaneous boxes and common garage items. ";
+						exits = "The door into the kitchen is on one side of the garage, and a door with what looks like" +
+								" stairs leading down is on the other side. ";
+						Game.getController().updateRoom(Game.getCurrentCharacter());
 					}
 				}
 			}
@@ -113,7 +149,7 @@ public class Garage extends Rooms {
 					if (input.toString().contains("window")) {
 						skill = "strength";
 						if (Game.getCurrentCharacter().skillCheck(skill)) {
-							windowSmashed = true;
+							help.setWindowSmashed(true);
 							Game.getController().write("You smashed the window successfully");
 						}
 						else {
@@ -129,7 +165,7 @@ public class Garage extends Rooms {
 					if (input.toString().contains("boxes")) {
 						skill = "strength";
 						if (Game.getCurrentCharacter().skillCheck(skill)) {
-							boxesMoved = true;
+							help.setBoxesMoved(true);
 							Game.getController().write("You moved the boxes successfully and notice some cash on the ground.");
 						}
 						else {
