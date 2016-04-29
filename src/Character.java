@@ -9,6 +9,8 @@ public class Character implements Serializable {
 
     private static final long serialVersionUID = 1l; // required for serialization
 
+    private boolean caught;
+
     private String name;
     private Inventory inventory;                                // each character has their own inventory
     private LeaderBoard leaderboard;                            // and LeaderBoard objects
@@ -36,6 +38,8 @@ public class Character implements Serializable {
      */
     public Character(String name, int strength, int reflex, int intelligence,
                      int perception, int dexterity, int luck, int exp) {
+        caught = false;
+
         this.name = name;
         inventory = new Inventory();
         leaderboard = new LeaderBoard();
@@ -308,4 +312,11 @@ public class Character implements Serializable {
         exp += amount;
     }
 
+    public boolean isCaught() {
+        return caught;
+    }
+
+    public void setCaught(boolean caught) {
+        this.caught = caught;
+    }
 }

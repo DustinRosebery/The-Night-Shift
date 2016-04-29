@@ -52,6 +52,10 @@ public class Inventory implements Serializable{
 	public double getWeight() {
 		return totalWeight;
 	}
+
+	public double getValue() {
+		return totalValue;
+	}
 	
 	/**
 	 * removes an item from player inventory

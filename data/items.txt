@@ -17,3 +17,8 @@ Outdoor_Speakers 350 45
 Bike_Pump 20 2
 GPS 200 .5
 Wire_Hanger 1 .1
+Vault 25 30
+Katana 100 10
+Keyboard 30 1
+Diamond_ring 2000 .5
+Golden_pot 100 10

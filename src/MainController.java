@@ -64,16 +64,6 @@ public class MainController implements Initializable {
                         write("Unknown command: Type \"help\" for help regarding commands.");
             }
         });
-
-        // Testing commands; TODO: Remove later, just to test roll function
-        interpreter.offer(input -> {
-            boolean handled;
-            if (handled = input.toString().equalsIgnoreCase("roll")) {
-                int roll = rollDice();
-            }
-            return handled;
-        });
-
     }
 
     /**
@@ -109,9 +99,15 @@ public class MainController implements Initializable {
         statsField.appendText("Reflex:\t\t\t\t" + character.reflex() + "\n");
         statsField.appendText("Intelligence:\t\t\t" + character.intelligence() + "\n");
         statsField.appendText("Perception:\t\t\t" + character.perception() + "\n");
-        statsField.appendText("Dexterity:\t\t\t" + character.dexterity() + "\n");
+        statsField.appendText("Dexterity:\t\t\t\t" + character.dexterity() + "\n");
         statsField.appendText("Luck:\t\t\t\t" + character.luck() + "\n");
         statsField.appendText("Experience Points:\t\t" + character.exp() + "\n");
+
+        itemsField.setText("Items for " + character.name() + "\n\n");
+        itemsField.appendText("Name\tValue\tWeight\n");
+        for (Items item : character.inventory().getList()) {
+            itemsField.appendText(item.getName() + "\t" + item.getValue() + "\t" + item.getWeight() + "\n");
+        }
     }
 
     /**
@@ -174,6 +170,16 @@ public class MainController implements Initializable {
         return sum;
     }
 
+    public void handleFailure() {
+        write("You failed!");
+        if (character.skillCheck("luck")) {
+            write("You were lucky enough to escape your failure.");
+        } else {
+            character.setCaught(true);
+            write("You were caught.");
+        }
+    }
+
     /**
      * Sets up the interpreter with basic commands
      */
@@ -193,6 +199,13 @@ public class MainController implements Initializable {
                 System.out.println("[Autosave] The character could not be saved.");
 
             return false; // Autosave character, but do not prevent commands from happening
+
+        }, input -> {
+            boolean handled;
+            if (handled = character.isCaught()) {
+                write("This character was caught. Please create or load a different character.");
+            }
+            return handled;
 
         }, input -> {
             boolean handled;
