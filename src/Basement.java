@@ -13,6 +13,9 @@ public class Basement extends Rooms {
 
     @Override
     public void entry(Character character) {
+        character.setIndex(roomIndex);
+        Game.getController().updateRoom(character);
+
         Interpreter interpreter = new Interpreter(input -> {
             boolean handled = false;
             String[] args = input.toString().split(" ");
@@ -67,12 +70,13 @@ public class Basement extends Rooms {
                     Game.getController().write("What do you want to grab?");
                 }
 
+            } else if (handled = args[0].equalsIgnoreCase("look")) {
+
             }
             return handled;
         });
 
         setInterpreter(interpreter);
-
     }
 
 
