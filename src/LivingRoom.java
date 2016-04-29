@@ -44,7 +44,7 @@ public class LivingRoom extends Rooms {
                     }
 
                     if (validItem) {
-                        if (!Game.getCurrentCharacter().inventory().getList().contains(Items.itemList.get(1))) {
+                        if (!Game.getCurrentCharacter().inventory().getList().contains(Items.itemList.get(itemIndex))) {
 
                             if (rollRequired && Game.getCurrentCharacter().skillCheck(skill)) {
                                 Game.getCurrentCharacter().addItem(Items.itemList.get(itemIndex));
