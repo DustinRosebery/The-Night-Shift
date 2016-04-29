@@ -198,6 +198,14 @@ public class MainController implements Initializable {
 
         }, input -> {
             boolean handled;
+            if (handled = input.toString().equalsIgnoreCase("exit")) {
+                Stage stage = (Stage) mainPane.getScene().getWindow();
+                stage.close();
+            }
+            return handled;
+
+        }, input -> {
+            boolean handled;
             if (handled = character.isCaught()) {
                 write("This character was caught. Please create or load a different character.");
             } else if (handled = character.isEscaped()) {
@@ -244,14 +252,6 @@ public class MainController implements Initializable {
             boolean handled;
             if (handled = input.toString().equalsIgnoreCase("clear"))
                 historyField.setText("Command History\n");
-            return handled;
-
-        }, input -> {
-            boolean handled;
-            if (handled = input.toString().equalsIgnoreCase("exit")) {
-                Stage stage = (Stage) mainPane.getScene().getWindow();
-                stage.close();
-            }
             return handled;
 
         }, input -> {                                             // exp usage
