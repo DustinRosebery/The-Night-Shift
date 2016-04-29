@@ -3,6 +3,14 @@
 github_settings.xml
 gradle.run.settings.xml
 vcs.xml
+databaseSettings.xml
+debugger.xml
+diff.xml
+IntelliLang.xml
+vcs.xml
+web-browsers.xml
+inspection/
+_windows/
 
 ##### Eclipse Files #####
 
