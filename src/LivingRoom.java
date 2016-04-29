@@ -15,21 +15,6 @@ public class LivingRoom extends Rooms {
         exits = "You notice a door cracked open with some stairs leading down to what you assume is the basement, another door that you think " +
                 "you can hear someone snoring behind, and the archway leading into the kitchen.";
 
-    }
-
-    /**
-     * Runs when the living room is entered and gives the room control of the interpreter
-     * @param character
-     */
-    public void entry(Character character) {
-
-        state = 0;
-        description = Saves.loadDescription(name);
-
-        character.setIndex(roomIndex);
-        Game.getController().updateRoom(character);
-
-
         Interpreter interpreter = new Interpreter(input -> {        // How the player picks up an item
             String[] args = ((String) input).split(" ");
             boolean handled = false;
@@ -96,14 +81,29 @@ public class LivingRoom extends Rooms {
                                     "Quality black leather is riveted together with copper buttons holding it all in place.");
                         }
                     }
-
                 }
-
-                return handled;
             }
+            return handled;
         });
 
         setInterpreter(interpreter);
+
+    }
+
+    /**
+     * Runs when the living room is entered and gives the room control of the interpreter
+     * @param character
+     */
+    public void entry(Character character) {
+
+        state = 0;
+        description = Saves.loadDescription(name);
+
+        character.setIndex(roomIndex);
+        Game.getController().updateRoom(character);
+
+
+
     } // end of entry
 
 }
