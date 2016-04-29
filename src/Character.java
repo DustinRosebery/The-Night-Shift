@@ -73,6 +73,8 @@ public class Character implements Serializable {
             else if (exp > 3)
                 exp =3;
 
+            this.exp += exp;
+
             Game.getController().updateCharacter(this);
         }
         else
