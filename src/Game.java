@@ -60,7 +60,7 @@ public class Game extends Application {
         Items.populate();
         currentCharacter = character;
         currentCharacter.initMap();
-        controller.updateRoom(currentCharacter);
+        character.currentRoom().entry(character);
         controller.write ("Try going inside");
     }
 
