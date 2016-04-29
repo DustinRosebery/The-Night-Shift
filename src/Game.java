@@ -30,7 +30,7 @@ public class Game extends Application {
         controller = loader.getController();
 
         primaryStage.setTitle("The NightShift");
-        primaryStage.setResizable(false);
+        //primaryStage.setResizable(true);
         primaryStage.setScene(new Scene(root, 1000, 750));
         primaryStage.show();
 

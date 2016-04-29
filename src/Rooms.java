@@ -15,6 +15,8 @@ public abstract class Rooms implements Serializable{
     String name = "";
     String description = "";
     String exits = "";              // shows the possible room exits to be written to the GUI (historyField)
+    Interpreter interpreter;
+    static String[] lookCommands;
 
     public int getRoomIndex() {
         return roomIndex;
@@ -60,8 +62,6 @@ public abstract class Rooms implements Serializable{
         this.interpreter = interpreter;
     }
 
-    Interpreter interpreter;
-    static String[] lookCommands;
 
     /**
      * Room Map:

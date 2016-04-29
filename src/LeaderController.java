@@ -31,8 +31,11 @@ public class LeaderController implements Initializable {
 
         ArrayList<String> stats = new ArrayList<String>();
         for (Character character : characters)
-            stats.add(character.name() + " - " + character.inventory().getValue() +
-                    (character.isCaught() ? " - CAUGHT" : ""));
+            stats.add(character.name() + " - $" + character.inventory().getValue() + " - Level: " +
+                    (character.strength() + character.dexterity() + character.intelligence() +
+                            character.intelligence() + character.perception() + character.exp()) +
+                    (character.isCaught() ? " - CAUGHT" : "") +
+                    (character.isEscaped() ? " - ESCAPED" : ""));
 
         ObservableList<String> observableStats = FXCollections.observableArrayList(stats);
         listView.setItems(observableStats);

@@ -172,12 +172,7 @@ public class MainController implements Initializable {
 
     public void handleFailure() {
         write("You failed!");
-        if (character.skillCheck("luck")) {
-            write("You were lucky enough to escape your failure.");
-        } else {
-            character.setCaught(true);
-            write("You were caught.");
-        }
+        character.setEscaping(true);
     }
 
     /**
@@ -204,6 +199,27 @@ public class MainController implements Initializable {
             boolean handled;
             if (handled = character.isCaught()) {
                 write("This character was caught. Please create or load a different character.");
+            } else if (handled = character.isEscaped()) {
+                write("This character has escaped. Please create or load a different character.");
+            }
+            return handled;
+
+        }, input -> {
+            boolean handled;
+            if (handled = character.isEscaping()) {
+                if (input.toString().contains("escape")) {
+                    if (character.skillCheck("luck")) {
+                        character.setEscaping(false);
+                        character.setEscaped(true);
+                        write("You were lucky enough to escape your failure.");
+                    } else {
+                        character.setEscaping(false);
+                        character.setCaught(true);
+                        write("You were caught.");
+                    }
+                } else {
+                    write("You are currently escaping. Please type \'escape\' to attempt your retreat.");
+                }
             }
             return handled;
 
@@ -268,7 +284,7 @@ public class MainController implements Initializable {
 
                 input -> {                                       // basic movement between rooms according to the room map
             boolean handled = false;
-            boolean checked = false;
+            boolean navError = false;
             int outside = 0;
             int basement = 1;
             int livingroom = 2;
@@ -282,73 +298,67 @@ public class MainController implements Initializable {
                     "Try another room.","You can't go that way.","That seems impossible"};
             int error = navErrors.length;
 
-            for (int wordsIndex = 0; wordsIndex < navWords.length; wordsIndex++) {
+            for (int wordsIndex = 0; wordsIndex < navWords.length && !handled; wordsIndex++) {
                 if (handled = (handled || command[0].equalsIgnoreCase(navWords[wordsIndex]))) {
 
-                    for (int cmdIndex = 0; cmdIndex < command.length; cmdIndex++) {
-                        int room = character.index();
+                    int room = character.index();
 
-                        if (command[cmdIndex].equalsIgnoreCase("kitchen") && !checked) {
-                            if (room == livingroom || room == garage || room == bedroom) {
-                                Game.exitRoom(character);
-                                character.setIndex(kitchen);
-                                checked = true;
-                                Game.enterRoom(character);
-                            } else
-                                write( navErrors[Dice.rand(error)] );
+                    if (input.toString().contains("kitchen")) {
+                        if (room == livingroom || room == garage || room == bedroom) {
+                            Game.exitRoom(character);
+                            character.setIndex(kitchen);
+                            Game.enterRoom(character);
+                        } else
+                            navError = true;
 
-                        } else if (command[cmdIndex].equalsIgnoreCase("living") || command[cmdIndex].equalsIgnoreCase("livingroom") && !checked) {
-                            if (room == basement || room == bedroom || room == kitchen) {
-                                Game.exitRoom(character);
-                                character.setIndex(livingroom);
-                                checked = true;
-                                Game.enterRoom(character);
-                            } else
-                                write( navErrors[Dice.rand(error)] );
+                    } else if (input.toString().contains("living")) {
+                        if (room == basement || room == bedroom || room == kitchen) {
+                            Game.exitRoom(character);
+                            character.setIndex(livingroom);
+                            Game.enterRoom(character);
+                        } else
+                            navError = true;
 
-                        } else if (command[cmdIndex].equalsIgnoreCase("bed") || command[cmdIndex].equalsIgnoreCase("bedroom") && !checked) {
-                            if (room == livingroom || room == kitchen) {
-                                Game.exitRoom(character);
-                                character.setIndex(bedroom);
-                                checked = true;
-                                Game.enterRoom(character);
-                            }
-                            else
-                                write( navErrors[Dice.rand(error)] );
-
-                        } else if (command[cmdIndex].equalsIgnoreCase("basement") || command[cmdIndex].equalsIgnoreCase("stairs") && !checked) {
-                            if (room == garage || room == livingroom) {
-                                Game.exitRoom(character);
-                                character.setIndex(basement);
-                                checked = true;
-                                Game.enterRoom(character);
-                            } else
-                                write( navErrors[Dice.rand(error)] );
-
-                        } else if (command[cmdIndex].equalsIgnoreCase("garage") && !checked) {
-                            if (room == 1 || room == 4) {
-                                Game.exitRoom(character);
-                                character.setIndex(5);
-                                checked = true;
-                                Game.enterRoom(character);
-                            } else
-                                write( navErrors[Dice.rand(error)] );
-
-                        } else if (command[cmdIndex].equalsIgnoreCase("inside") && !checked) {          // for testing
-                            if (room == 0) {
-                                Game.exitRoom(character);
-                                character.setIndex(2);
-                                checked = true;
-                                Game.enterRoom(character);
-                            } else
-                                write("You're already inside...");
-
+                    } else if (input.toString().contains("bed")) {
+                        if (room == livingroom || room == kitchen) {
+                            Game.exitRoom(character);
+                            character.setIndex(bedroom);
+                            Game.enterRoom(character);
                         }
+                        else
+                            navError = true;
+
+                    } else if (input.toString().contains("basement") || input.toString().contains("stairs")) {
+                        if (room == garage || room == livingroom) {
+                            Game.exitRoom(character);
+                            character.setIndex(basement);
+                            Game.enterRoom(character);
+                        } else
+                            navError = true;
+
+                    } else if (input.toString().contains("garage")) {
+                        if (room == 1 || room == 4) {
+                            Game.exitRoom(character);
+                            character.setIndex(5);
+                            Game.enterRoom(character);
+                        } else
+                            navError = true;
+
+                    } else if (input.toString().contains("inside")) {          // for testing
+                        if (room == 0) {
+                            Game.exitRoom(character);
+                            character.setIndex(2);
+                            Game.enterRoom(character);
+                        } else
+                            write("You're already inside...");
+
                     }
+
                 }
             }
-            if (!checked)
+            if (navError)
                 write( navErrors[Dice.rand(error)] );
+
             return handled;
         });
     }
