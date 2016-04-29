@@ -20,6 +20,11 @@ public class Garage extends Rooms {
 
 		description = Saves.loadDescription(name);
 
-		exits = "basement - kitchen";
+		exits = "There is a door into the house and another on the other side of the garage, slightly ajar with what look" +
+				" stairs that lead downwards.";
+	}
+
+	public void entry(Character character) {
+		state = 0;
 	}
 }
