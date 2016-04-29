@@ -12,7 +12,7 @@ import java.util.Scanner;
  */
 public final class Saves {
 
-    private static final String PATH = "data/rooms.txt";
+    private static final String PATH = "data/";
 
 
     /**

@@ -74,7 +74,26 @@ public class StartController implements Initializable {
         });
 
         leaderboardButon.setOnAction(event -> {
-            // TODO: Implement leaderboard
+            Stage leaderStage = new Stage();
+            Parent leaderRoot = null;
+            try {
+                leaderRoot = FXMLLoader.load(getClass().getResource("/fxml/leaderboard.fxml"));
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+            Stage startStage = (Stage) startPane.getScene().getWindow();
+            leaderStage.setTitle("Leaderboard");
+            leaderStage.setResizable(false);
+            leaderStage.initModality(Modality.APPLICATION_MODAL);
+            leaderStage.setScene(new Scene(leaderRoot, 250, 250));
+            leaderStage.show();
+
+            startStage.hide();
+
+            leaderStage.setOnCloseRequest(closeEvent -> {
+                startStage.show();
+            });
         });
 
         quitButton.setOnAction(event -> {

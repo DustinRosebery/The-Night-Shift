@@ -1,0 +1,11 @@
+#This file contains team member's name and their associated GitHub ID
+
+Connor Nelson: ConnorNelson
+
+Dustin Rosebery: HDBerry
+
+Eric Gottfried: soniceric
+
+Kunal Lanjewar: kklan and kunallanjewar (two accounts due to git issues on computer)
+
+Trevor Rosenkilde: tcrosenk
