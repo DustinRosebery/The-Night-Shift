@@ -3,7 +3,12 @@
  * This is Bedroom controller for Dice rolling game.
  * So, you finally made it to the bedroom. Good for you, because there is no one here. 
  * 'take' as much stuff as you can before you get caught!
- * use "explore to find stuff"
+ * Use "explore" to find stuff.
+ * Hint: The bedroom has a popular Samsung equipment that you need to guess,
+ * It has a popular robot vacuumclean brand that you need to guess.
+ * It has a fitness equipment that you need to guess.
+ * It has a popular gaming console that you need to guess.
+ * It has something that you hang on the wall.
  * 
  */
 public class Bedroom extends Rooms {
@@ -17,7 +22,7 @@ public class Bedroom extends Rooms {
     
     exits = "Living room - kitchen";
 
-    Interpreter interpreter = new Interpreter(input -> {
+    Interpreter interpreter = new Interpreter((Command)(input) -> {
         boolean handled = false;
         String[] args = input.toString().split(" ");
 
