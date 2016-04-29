@@ -87,8 +87,15 @@ public class Garage extends Rooms {
 						if (help.isToolBoxOpen()) {
 							itemIndex = 29;
 							name = "crowbar";
-							Game.getCurrentCharacter().addItem(Items.itemList.get(itemIndex));
-							Game.getController().write("You take the " + name + " successfully");
+
+							if (!Game.getCurrentCharacter().inventory().getList().contains(Items.itemList.get(itemIndex))) {
+								Game.getCurrentCharacter().addItem(Items.itemList.get(itemIndex));
+								Game.getController().write("You take the " + name + " successfully");
+							}
+							else {
+								Game.getController().write("You already have that.");
+							}
+
 						} else {
 							Game.getController().write("Try opening the toolbox first.");
 						}
@@ -97,8 +104,14 @@ public class Garage extends Rooms {
 						if (help.isWindowSmashed()) {
 							itemIndex = 17;
 							name = "GPS";
-							Game.getCurrentCharacter().addItem(Items.itemList.get(itemIndex));
-							Game.getController().write("You take the " + name + " successfully");
+
+							if (!Game.getCurrentCharacter().inventory().getList().contains(Items.itemList.get(itemIndex))) {
+								Game.getCurrentCharacter().addItem(Items.itemList.get(itemIndex));
+								Game.getController().write("You take the " + name + " successfully");
+							}
+							else {
+								Game.getController().write("You already have that.");
+							}
 						}
 						else {
 							Game.getController().write("The doors are locked. Try getting inside another way.");
@@ -108,8 +121,14 @@ public class Garage extends Rooms {
 						if (help.isBoxesMoved()) {
 							itemIndex = 8;
 							name = "cash";
-							Game.getCurrentCharacter().addItem(Items.itemList.get(itemIndex));
-							Game.getController().write("You take the " + name + " successfully");
+
+							if (!Game.getCurrentCharacter().inventory().getList().contains(Items.itemList.get(itemIndex))) {
+								Game.getCurrentCharacter().addItem(Items.itemList.get(itemIndex));
+								Game.getController().write("You take the " + name + " successfully");
+							}
+							else {
+								Game.getController().write("You already have that.");
+							}
 						}
 						else {
 							Game.getController().write("I'm not sure where you see that... try moving some stuff around.");
@@ -134,9 +153,9 @@ public class Garage extends Rooms {
 					}
 				}
 			}
-			else if (handled = args[0].equalsIgnoreCase("turn")) {
-				if (args.length >= 3) {
-					if (input.toString().contains("on") && input.toString().contains("lights")) {
+			else if (handled = (args[0].equalsIgnoreCase("turn") || args[0].equalsIgnoreCase("switch"))) {
+				if (args.length >= 2) {
+					if (input.toString().contains("lights")) {
 						description = "You turned on the lights. You now notice a shiny new car, some old rusty bikes, a toolbox, some speakers, and other\n" +
 								"miscellaneous boxes and common garage items. ";
 						exits = "The door into the kitchen is on one side of the garage, and a door with what looks like" +
