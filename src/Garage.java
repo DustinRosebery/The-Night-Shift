@@ -1,3 +1,4 @@
+import java.io.Serializable;
 
 /** Garage. It has a car in it that has a GPS inside of it.
  * The car keys are in the kitchen. There is a tool box with a crowbar and 
@@ -13,7 +14,9 @@
  */
 public class Garage extends Rooms {
 
-	private static class Helper {
+	private static class Helper implements Serializable {
+
+		private static final long serialVersionUID = 1l; // required for serialization
 
 		private boolean toolBoxOpen = false;
 		private boolean windowSmashed = false;
@@ -139,6 +142,7 @@ public class Garage extends Rooms {
 						exits = "The door into the kitchen is on one side of the garage, and a door with what looks like" +
 								" stairs leading down is on the other side. ";
 						Game.getController().updateRoom(Game.getCurrentCharacter());
+						Game.getController().write(exits);
 					}
 				}
 			}
