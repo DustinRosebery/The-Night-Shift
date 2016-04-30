@@ -146,7 +146,7 @@ public class Character implements Serializable {
      */
     public boolean skillCheck (String stat) {
         boolean conclusion = false;
-        Game.getController().write("");
+        Game.getController().write("Currently rolling against " + stat + " to succeed");
 
         int roll = Game.getController().rollDice();
         if (stat.compareTo("strength") == 0) {
