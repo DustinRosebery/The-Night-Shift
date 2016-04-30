@@ -27,7 +27,7 @@ public class Bedroom extends Rooms {
         boolean handled = false;
         String[] args = input.toString().split(" ");
 
-        if (handled = args[0].equalsIgnoreCase("take")) {
+        if (handled = (args[0].equalsIgnoreCase("take") || args[0].equalsIgnoreCase("get") || args[0].equalsIgnoreCase("grab"))) {
             boolean validItem = false;
             int itemIndex = -1;
             String skill = "";

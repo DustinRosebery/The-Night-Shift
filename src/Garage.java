@@ -75,7 +75,7 @@ public class Garage extends Rooms {
 					Game.getController().write("What do you want to open?");
 				}
 			}
-			else if (handled = args[0].equalsIgnoreCase("take")) {
+			else if (handled = (args[0].equalsIgnoreCase("take") || args[0].equalsIgnoreCase("get") || args[0].equalsIgnoreCase("grab")) ) {
 				boolean validItem = false;
 				int itemIndex = -1;
 				String skill = "";

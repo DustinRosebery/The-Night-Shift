@@ -72,9 +72,17 @@ public class LivingRoom extends Rooms {
                         name = "curtains";
                         Game.getController().write("Getting these down without making any noise is gonna take some muscle.");
                     }
+                    else if (input.toString().contains("art") || input.toString().contains("painting")) {
+                        validItem = true;
+                        rollRequired = true;
+                        itemIndex = 31;
+                        skill = "perception";
+                        name = "Picasso";
+                        Game.getController().write("Something about the way this painting is hung seems strange.");
+                    }
 
                     if (validItem) {
-                        if (!!Game.getCurrentCharacter().inventory().contains(Items.itemList.get(itemIndex).getName())) {
+                        if (!Game.getCurrentCharacter().inventory().contains(Items.itemList.get(itemIndex).getName())) {
 
                             if (rollRequired && Game.getCurrentCharacter().skillCheck(skill)) {
                                 Game.getCurrentCharacter().addItem(Items.itemList.get(itemIndex));
@@ -125,7 +133,7 @@ public class LivingRoom extends Rooms {
                             "lines. They would probably be more trouble than they are worth.");
                         }
                     }
-                    else if (handled = (input.toString().contains("entertainment") || input.toString().contains("center"))) {
+                    else if ( handled = ( input.toString().contains("entertainment") || input.toString().contains("center"))) {
 
                         if (Dice.rand(17) <= Game.getCurrentCharacter().perception() - 1) {
                             Game.getController().write("Inside the large metal and glass entertainment center you see a sony blu-ray player, and a " +

@@ -172,6 +172,7 @@ public class MainController implements Initializable {
 
     public void handleFailure() {
         write("You failed!");
+        write("\nType escape to try and get away!");
         character.setEscaping(true);
     }
 
@@ -345,10 +346,19 @@ public class MainController implements Initializable {
                         } else
                             navError = true;
 
-                    } else if (input.toString().contains("inside")) {          // for testing
-                        if (room == 0) {
+                    } else if (input.toString().contains("door")) {
+                        if (room == outside) {
                             Game.exitRoom(character);
                             character.setIndex(2);
+                            Game.enterRoom(character);
+                        } else
+                            write("You're already inside...");
+
+                    }
+                    else if (input.toString().contains("window")) {          // for testing
+                        if (room == outside) {
+                            Game.exitRoom(character);
+                            character.setIndex(kitchen);
                             Game.enterRoom(character);
                         } else
                             write("You're already inside...");
