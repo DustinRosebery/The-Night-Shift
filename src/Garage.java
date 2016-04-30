@@ -156,8 +156,8 @@ public class Garage extends Rooms {
 			else if (handled = (args[0].equalsIgnoreCase("turn") || args[0].equalsIgnoreCase("switch"))) {
 				if (args.length >= 2) {
 					if (input.toString().contains("lights")) {
-						description = "You turned on the lights. You now notice a shiny new car, some old rusty bikes, a toolbox, some speakers, and other\n" +
-								"miscellaneous boxes and common garage items. ";
+						description = "You turned on the lights. You now notice a shiny new car, some old rusty bikes, a toolbox, some speakers, and other" +
+								" miscellaneous boxes and common garage items. ";
 						exits = "The door into the kitchen is on one side of the garage, and a door with what looks like" +
 								" stairs leading down is on the other side. ";
 						Game.getController().updateRoom(Game.getCurrentCharacter());
