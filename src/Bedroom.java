@@ -11,6 +11,8 @@
 import java.io.Serializable;
 
 public class Bedroom extends Rooms {
+	
+	/**  Initializing the essentials Bedroom constructor */
 
     public Bedroom() {
     roomIndex = 3;
