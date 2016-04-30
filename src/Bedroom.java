@@ -3,12 +3,14 @@
  * This is Bedroom controller for Dice rolling game.
  * So, you finally made it to the bedroom. Good for you, because there is no one here. 
  * 'take' as much stuff as you can before you get caught!
- * Use "explore" to find stuff.
- * Hint: The bedroom has a popular Samsung equipment that you need to guess,
- * It has a popular robot vacuumclean brand that you need to guess.
- * It has a fitness equipment that you need to guess.
- * It has a popular gaming console that you need to guess.
+ * Hint: The bedroom has a popular Samsung equipment for "entertainment" that you need to guess,
+ * It has a machinf for "cleaning".
+ * It has a "fitness" equipment that you need to guess.
+ * It has a popular something for "fun" that you need to guess.
  * It has something that you hang on the wall.
+ * 
+ * Ex: Use "explore fun" to find stuff.
+
  * 
  */
 import java.io.Serializable;
@@ -82,10 +84,10 @@ public class Bedroom extends Rooms {
         }
         else if (handled = args[0].equalsIgnoreCase("explore")){
 
-            if (input.toString().contains("cleaning")) {
-                Game.getController().write("Looks like you found a fancy vacuum cleaner");
+            if ((input.toString().contains("clean") || input.toString().contains("vacuum") || input.toString().contains("roomba") ) {
+                Game.getController().write("Looks like you found a fancy robot vacuum cleaner, Roomba");
             } else if (input.toString().contains("fun")) {
-                Game.getController().write("You see some cool gaming stuff");
+                Game.getController().write("You see some cool gaming console, guess which?");
             } else if (input.toString().contains("entertainment")) {
                 Game.getController().write("you notice an expensive samsung device");
             } else if (input.toString().contains("wall")) {
