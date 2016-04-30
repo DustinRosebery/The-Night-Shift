@@ -78,7 +78,7 @@ public class Bedroom extends Rooms {
             }
         }
         else if ((handled = args[0].equalsIgnoreCase("explore")) || (handled = args[0].equalsIgnoreCase("find")) ||
-                (handled = args[0].equalsIgnoreCase("search")) || (handled = args[0].equalsIgnoreCase("search"))){
+                (handled = args[0].equalsIgnoreCase("search")) || (handled = args[0].equalsIgnoreCase("look"))){
 
             if (input.toString().contains("clean") || input.toString().contains("vacuum") || input.toString().contains("roomba") ) {
                 Game.getController().write("Looks like you found a fancy robot vacuum cleaner. take roomba");
