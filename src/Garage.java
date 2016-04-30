@@ -1,13 +1,11 @@
 import java.io.Serializable;
 
-/** Garage. It has a car in it that has a GPS inside of it.
- * The car keys are in the kitchen. There is a tool box with a crowbar and 
- * hammer that can be used to smash a car window. Or, you can find an old
- * wire hanger in some boxes to try to pick the lock. There are large outdoor
- * speakers. They are too big to be brought out in a backpack, but you could
- * put them in the trunk of the car. There are bikes, but with flat tires. If
- * you pump them up, you can use a bike as a get away vehicle. Also, in the
- * boxes, there could be old jewelry, cash, or antiques. 
+/** Garage. When you first enter the garage, the lights are off (they need to be turned on). This means
+ * that the description of the room is minimal until the lights are turned on. Once the lights are turned
+ * on you see that there is a brand new car, some old boxes, a toolbox, some bikes and speakers. You can
+ * move the boxes and find cash, you can't move the speakers or the bikes because they are too heavy, and
+ * you can open the toolbox to find the crowbar to smash the window to grab the GPS.
+ *
  * 
  * @author Trevor Rosenkilde
  *
