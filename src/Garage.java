@@ -1,6 +1,6 @@
 import java.io.Serializable;
 
-/** Garage. When you first enter the garage, the lights are off (they need to be turned on). This means
+/** When you first enter the garage, the lights are off (they need to be turned on). This means
  * that the description of the room is minimal until the lights are turned on. Once the lights are turned
  * on you see that there is a brand new car, some old boxes, a toolbox, some bikes and speakers. You can
  * move the boxes and find cash, you can't move the speakers or the bikes because they are too heavy, and
