@@ -35,7 +35,7 @@ public class Bedroom extends Rooms {
             String name = "";
 
             if (args.length >= 2) {
-                if (input.toString().contains("roomba")) {
+                if (input.toString().contains("vacuum")) {
                     validItem = true;
                     itemIndex = 24;
                     skill = "reflex";
@@ -55,7 +55,7 @@ public class Bedroom extends Rooms {
                     itemIndex = 27;
                     skill = "perception";
                     name = "Rare Painting";
-                } else if (input.toString().contains("fitnessequipment")) {
+                } else if (input.toString().contains("treadmill")) {
                     validItem = true;
                     itemIndex = 28;
                     skill = "strength";
@@ -65,7 +65,7 @@ public class Bedroom extends Rooms {
                     Game.getController().write("There are many thing to steal. Explore the bedroom!");
                 }
                 if (validItem) {
-                    Game.getController().write("Item " + name + "is Valid!");
+                    Game.getController().write("Item " + name + " is Valid!");
 
                     if (!Game.getCurrentCharacter().inventory().getList().contains(Items.itemList.get(itemIndex))) {
                         if (Game.getCurrentCharacter().skillCheck(skill)) {
@@ -91,7 +91,7 @@ public class Bedroom extends Rooms {
             } else if (input.toString().contains("wall")) {
                 Game.getController().write("You see something on the wall");
             } else if (input.toString().contains("fitness")) {
-                Game.getController().write("You see fitness rig?");
+                Game.getController().write("You see fitness rig .. treadmill");
             }
 
         }
