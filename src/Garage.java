@@ -179,7 +179,8 @@ public class Garage extends Rooms {
 							skill = "strength";
 							if (Game.getCurrentCharacter().skillCheck(skill)) {
 								help.setWindowSmashed(true);
-								Game.getController().write("You smashed the window successfully");
+								Game.getController().write("You smashed the window successfully and notice a brand new" +
+										" GPS sitting on the dash board.");
 							}
 							else {
 								Game.getController().handleFailure();
