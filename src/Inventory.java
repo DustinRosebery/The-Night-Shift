@@ -34,7 +34,19 @@ public class Inventory implements Serializable{
 		calcValue();
 		calcWeight();
 	}
-	
+
+	/**
+	 * @param itemName Name of item to check
+	 * @return If inventory contains item
+     */
+	public boolean contains(String itemName) {
+		boolean contains = false;
+		for (Items item : myList)
+			if (item.getName().equalsIgnoreCase(itemName))
+				contains = true;
+		return contains;
+	}
+
 	/**
 	 * Gets inventory item at index
 	 * @param index

@@ -298,7 +298,7 @@ public class Character implements Serializable {
      * @param amount The amount to increase the dexterity by
      */
     public void addDexterity(int amount) {
-        dexterity++;
+        dexterity += amount;
         exp -= amount;
     }
 
@@ -307,7 +307,7 @@ public class Character implements Serializable {
      * @param amount The amount to increase the luck by
      */
     public void addLuck(int amount) {
-        luck++;
+        luck += amount;
         exp -= amount;
     }
 
