@@ -66,7 +66,7 @@ public class Garage extends Rooms {
 				if (args.length >= 2) {
 					if (input.toString().contains("toolbox")) {
 						help.setToolBoxOpen(true);
-						Game.getController().write("You opened the toolbox.");
+						Game.getController().write("You opened the toolbox. Inside there is a crowbar.");
 					} else {
 						Game.getController().write("What do you want to open? Try looking around.");
 					}
