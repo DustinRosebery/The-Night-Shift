@@ -60,6 +60,10 @@ public class Character implements Serializable {
         this.exp = exp;
     }
 
+    /**
+     * Adds specified item to characters inventory and updates the GUI
+     * @param item to be added
+     */
     public void addItem(Items item) {
 
         if (inventory.getWeight() + item.getWeight() <= strength * 10) {
@@ -140,7 +144,7 @@ public class Character implements Serializable {
     }
 
     /**
-     * performs a hidden roll against a specified stat
+     * performs a roll against a specified stat
      * @param stat to check
      * @return true on success
      */
@@ -319,26 +323,47 @@ public class Character implements Serializable {
         exp += amount;
     }
 
+    /**
+     * @return caught or not
+     */
     public boolean isCaught() {
         return caught;
     }
 
+    /**
+     * Sets caught flag
+     * @param caught
+     */
     public void setCaught(boolean caught) {
         this.caught = caught;
     }
 
+    /**
+     * @return escaping or not
+     */
     public boolean isEscaping() {
         return escaping;
     }
 
+    /**
+     * sets escaping flag
+     * @param escaping
+     */
     public void setEscaping(boolean escaping) {
         this.escaping = escaping;
     }
 
+    /**
+     * @return escaping flag
+     */
     public boolean isEscaped() {
         return escaped;
     }
 
+    /**
+     * sets escaped flag
+     * @param escaped
+     */
     public void setEscaped(boolean escaped) {
         this.escaped = escaped;
     }

@@ -14,7 +14,6 @@ import java.io.IOException;
 
 /**
  * Sets up the JavaFX 'stage'
- * TODO: implement enterRoom and exitRoom
  * @author Connor Nelson, Dustin Rosebery
  */
 
@@ -47,7 +46,10 @@ public class Game extends Application {
         startStage.show();
     }
 
-    // TODO: possibly make controller protected
+    /**
+     * Gives control of the GUI to different classes
+     * @return GUI controller
+     */
     public static MainController getController() {
         return controller;
     }
@@ -64,7 +66,9 @@ public class Game extends Application {
         controller.write ("Try going inside");
     }
 
-
+    /**
+     * @return current character playing the game
+     */
     public static Character getCurrentCharacter() {
         return currentCharacter;
     }
@@ -78,7 +82,7 @@ public class Game extends Application {
         currentCharacter = character;
         character.currentRoom().entry(character);
         if (currentCharacter.index() == 0)
-            controller.write ("try going inside");
+            controller.write ("Hint: try out different commands to navigate");
     }
 
     /**
@@ -97,8 +101,11 @@ public class Game extends Application {
      * @param character
      */
     public static void exitRoom(Character character) {}
-    //TODO
 
+    /**
+     * Main method
+     * @param args
+     */
     public static void main(String... args) {
         launch(args);
     }

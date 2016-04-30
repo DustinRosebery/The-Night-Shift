@@ -57,14 +57,23 @@ public class Inventory implements Serializable{
 		return myList.get(index);
 	}
 
+	/**
+	 * @return inventory
+     */
 	public ArrayList<Items> getList() {
 		return myList;
 	}
 
+	/**
+	 * @return total weight of inventory
+     */
 	public double getWeight() {
 		return totalWeight;
 	}
 
+	/**
+	 * @return total value of inventory
+     */
 	public double getValue() {
 		return totalValue;
 	}
