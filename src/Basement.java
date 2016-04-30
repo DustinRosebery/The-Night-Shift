@@ -53,13 +53,15 @@ public class Basement extends Rooms {
                         Game.getController().write("What do you want to take? Try looking around.");
                     }
                     if (validItem) {
-                        if (!Game.getCurrentCharacter().inventory().getList().contains(Items.itemList.get(itemIndex))) {
+                        if (!Game.getCurrentCharacter().inventory().contains(Items.itemList.get(itemIndex).getName())) {
                             if (Game.getCurrentCharacter().skillCheck(skill)) {
                                 Game.getCurrentCharacter().addItem(Items.itemList.get(itemIndex));
                                 Game.getController().write("You take the " + name + " successfully");
                             } else {
                                 Game.getController().handleFailure();
                             }
+                        } else {
+                            Game.getController().write("You already have the " + name);
                         }
                     }
                 } else {

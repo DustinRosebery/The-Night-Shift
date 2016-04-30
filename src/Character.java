@@ -146,7 +146,7 @@ public class Character implements Serializable {
      */
     public boolean skillCheck (String stat) {
         boolean conclusion = false;
-        Game.getController().write("");
+        Game.getController().write("Currently rolling against " + stat + " to succeed");
 
         int roll = Game.getController().rollDice();
         if (stat.compareTo("strength") == 0) {
@@ -298,7 +298,7 @@ public class Character implements Serializable {
      * @param amount The amount to increase the dexterity by
      */
     public void addDexterity(int amount) {
-        dexterity++;
+        dexterity += amount;
         exp -= amount;
     }
 
@@ -307,7 +307,7 @@ public class Character implements Serializable {
      * @param amount The amount to increase the luck by
      */
     public void addLuck(int amount) {
-        luck++;
+        luck += amount;
         exp -= amount;
     }
 
