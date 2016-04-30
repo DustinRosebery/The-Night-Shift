@@ -3,14 +3,9 @@
  * This is Bedroom controller for Dice rolling game.
  * So, you finally made it to the bedroom. Good for you, because there is no one here. 
  * 'take' as much stuff as you can before you get caught!
- * Hint: The bedroom has a popular Samsung equipment for "entertainment" that you need to guess,
- * It has a machinf for "cleaning".
- * It has a "fitness" equipment that you need to guess.
- * It has a popular something for "fun" that you need to guess.
- * It has something that you hang on the wall.
- * 
- * Ex: Use "explore fun" to find stuff.
-
+ *
+ * There is nice vacuum cleaner in the corner, a stuff for entertainment, there is also a rare painting on the wall,
+ * the owner is fitness contious so there is a fitness equipment aswell.
  * 
  */
 import java.io.Serializable;
@@ -37,7 +32,7 @@ public class Bedroom extends Rooms {
             String name = "";
 
             if (args.length >= 2) {
-                if (input.toString().contains("vacuum")) {
+                if (input.toString().contains("roomba")) {
                     validItem = true;
                     itemIndex = 24;
                     skill = "reflex";
@@ -69,7 +64,7 @@ public class Bedroom extends Rooms {
                 if (validItem) {
                     Game.getController().write("Item " + name + " is Valid!");
 
-                    if (!Game.getCurrentCharacter().inventory().getList().contains(Items.itemList.get(itemIndex))) {
+                    if (!Game.getCurrentCharacter().inventory().contains(Items.itemList.get(itemIndex).getName())) {
                         if (Game.getCurrentCharacter().skillCheck(skill)) {
                             Game.getCurrentCharacter().addItem(Items.itemList.get(itemIndex));
                             Game.getController().write("Nice job! You took " + name + " successfully");
@@ -82,18 +77,20 @@ public class Bedroom extends Rooms {
                 Game.getController().write("So, What do you want to steal?");
             }
         }
-        else if (handled = args[0].equalsIgnoreCase("explore")){
+        else if ((handled = args[0].equalsIgnoreCase("explore")) || (handled = args[0].equalsIgnoreCase("find")) ||
+                (handled = args[0].equalsIgnoreCase("search")) || (handled = args[0].equalsIgnoreCase("search"))){
 
-            if ((input.toString().contains("clean") || input.toString().contains("vacuum") || input.toString().contains("roomba") ) {
-                Game.getController().write("Looks like you found a fancy robot vacuum cleaner, Roomba");
-            } else if (input.toString().contains("fun")) {
-                Game.getController().write("You see some cool gaming console, guess which?");
-            } else if (input.toString().contains("entertainment")) {
-                Game.getController().write("you notice an expensive samsung device");
-            } else if (input.toString().contains("wall")) {
-                Game.getController().write("You see something on the wall");
-            } else if (input.toString().contains("fitness")) {
-                Game.getController().write("You see fitness rig .. treadmill");
+            if (input.toString().contains("clean") || input.toString().contains("vacuum") || input.toString().contains("roomba") ) {
+                Game.getController().write("Looks like you found a fancy robot vacuum cleaner. take roomba");
+            } else if ((input.toString().contains("fun")) || (input.toString().contains("game")) ||
+                    (input.toString().contains("playstation"))) {
+                Game.getController().write("Looks like you found a playstation. take playstation");
+            } else if ((input.toString().contains("entertainment")) || (input.toString().contains("tv"))) {
+                Game.getController().write("Looks like you found a tv. take tv");
+            } else if ((input.toString().contains("wall")) || (input.toString().contains("painting"))) {
+                Game.getController().write("Looks like you found a painting. take painting");
+            } else if ((input.toString().contains("fitness")) || (input.toString().contains("gym"))) {
+                Game.getController().write("Looks like you found a treadmill. take treadmill");
             }
 
         }
