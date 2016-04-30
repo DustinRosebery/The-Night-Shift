@@ -63,7 +63,7 @@ public class Game extends Application {
         currentCharacter = character;
         currentCharacter.initMap();
         character.currentRoom().entry(character);
-        controller.write ("Try going inside");
+        controller.write ("Hint: try out different commands to navigate around the house.");
     }
 
     /**
@@ -91,7 +91,6 @@ public class Game extends Application {
      */
     public static void enterRoom(Character character) {
         controller.write (currentCharacter.currentRoom().exits());
-        //TODO add room control
         controller.updateRoom(character);
     }
 

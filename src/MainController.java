@@ -25,8 +25,6 @@ public class MainController implements Initializable {
     private final static int FRAME_DURATION = 75;
 
     private Character character;
-    //TODO: private ArrayList<Room> rooms;
-    //TODO: private Room currentRoom;
 
     private Interpreter interpreter;
     private boolean commandsAllowed;
