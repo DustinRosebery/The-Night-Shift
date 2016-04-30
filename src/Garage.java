@@ -88,7 +88,7 @@ public class Garage extends Rooms {
 							itemIndex = 29;
 							name = "crowbar";
 
-							if (!Game.getCurrentCharacter().inventory().getList().contains(Items.itemList.get(itemIndex))) {
+							if (!Game.getCurrentCharacter().inventory().contains(Items.itemList.get(itemIndex).getName())) {
 								Game.getCurrentCharacter().addItem(Items.itemList.get(itemIndex));
 								Game.getController().write("You take the " + name + " successfully");
 							}
@@ -105,7 +105,7 @@ public class Garage extends Rooms {
 							itemIndex = 17;
 							name = "GPS";
 
-							if (!Game.getCurrentCharacter().inventory().getList().contains(Items.itemList.get(itemIndex))) {
+							if (!Game.getCurrentCharacter().inventory().contains(Items.itemList.get(itemIndex).getName())) {
 								Game.getCurrentCharacter().addItem(Items.itemList.get(itemIndex));
 								Game.getController().write("You take the " + name + " successfully");
 							}
@@ -122,7 +122,7 @@ public class Garage extends Rooms {
 							itemIndex = 8;
 							name = "cash";
 
-							if (!Game.getCurrentCharacter().inventory().getList().contains(Items.itemList.get(itemIndex))) {
+							if (!Game.getCurrentCharacter().inventory().contains(Items.itemList.get(itemIndex).getName())) {
 								Game.getCurrentCharacter().addItem(Items.itemList.get(itemIndex));
 								Game.getController().write("You take the " + name + " successfully");
 							}
@@ -146,7 +146,7 @@ public class Garage extends Rooms {
 					Game.getController().write("What do you want to grab?");
 				}
 				if (validItem) {
-					if (!Game.getCurrentCharacter().inventory().getList().contains(Items.itemList.get(itemIndex))) {
+					if (!Game.getCurrentCharacter().inventory().contains(Items.itemList.get(itemIndex).getName())) {
 						if (Game.getCurrentCharacter().skillCheck(skill)) {
 							Game.getCurrentCharacter().addItem(Items.itemList.get(itemIndex));
 							Game.getController().write("You take the " + name + " successfully");
@@ -175,7 +175,7 @@ public class Garage extends Rooms {
 				if (args.length >= 2) {
 					if (input.toString().contains("window")) {
 
-						if (Game.getCurrentCharacter().inventory().getList().contains(Items.itemList.get(itemIndex))) {
+						if (Game.getCurrentCharacter().inventory().contains(Items.itemList.get(itemIndex).getName())) {
 							skill = "strength";
 							if (Game.getCurrentCharacter().skillCheck(skill)) {
 								help.setWindowSmashed(true);
