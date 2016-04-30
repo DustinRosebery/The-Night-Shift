@@ -1,4 +1,5 @@
 import java.io.*;
+import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -12,7 +13,7 @@ import java.util.Scanner;
  */
 public final class Saves {
 
-    private static final String PATH = "data/";
+    private static final String PATH = "data" + File.separatorChar;
 
 
     /**
