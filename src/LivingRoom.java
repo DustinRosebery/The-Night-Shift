@@ -42,6 +42,19 @@ public class LivingRoom extends Rooms {
                         skill = "";
                         name = "wad of cash";
                     }
+                    else if (input.toString().contains("tv")) {
+                        validItem = true;
+                        rollRequired = true;
+                        itemIndex = 2;
+                        skill = "strength";
+                        name = "tv";
+                    }
+                    else if (input.toString().contains("pen")) {
+                        validItem = true;
+                        rollRequired = false;
+                        itemIndex = 10;
+                        name = "pen";
+                    }
 
                     if (validItem) {
                         if (!Game.getCurrentCharacter().inventory().getList().contains(Items.itemList.get(itemIndex))) {
@@ -72,6 +85,7 @@ public class LivingRoom extends Rooms {
                 if (args.length >= 2) {
 
                     if (handled = (input.toString().contains("couch"))) {
+
                         if (Dice.rand(17) <= Game.getCurrentCharacter().perception() - 1) {
                             Game.getController().write("Both the sofa and the loveseat look to be in perfect condition. " +
                                     "Quality black leather is riveted together with copper buttons holding it all in place. Out of the " +
