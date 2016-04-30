@@ -28,3 +28,5 @@ PlayStation_4 350 4
 Painting 2000 1.5
 Fitness_Equipment 1200 100
 Crowbar 25 5
+Curtains 300 40
+
