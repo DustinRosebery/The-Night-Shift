@@ -171,15 +171,22 @@ public class Garage extends Rooms {
 			else if (handled = args[0].equalsIgnoreCase("smash")) {
 				String skill = "";
 				String name = "";
+				int itemIndex = 29;
 				if (args.length >= 2) {
 					if (input.toString().contains("window")) {
-						skill = "strength";
-						if (Game.getCurrentCharacter().skillCheck(skill)) {
-							help.setWindowSmashed(true);
-							Game.getController().write("You smashed the window successfully");
+
+						if (Game.getCurrentCharacter().inventory().getList().contains(Items.itemList.get(itemIndex))) {
+							skill = "strength";
+							if (Game.getCurrentCharacter().skillCheck(skill)) {
+								help.setWindowSmashed(true);
+								Game.getController().write("You smashed the window successfully");
+							}
+							else {
+								Game.getController().handleFailure();
+							}
 						}
 						else {
-							Game.getController().handleFailure();
+							Game.getController().write("You don't have anything to do that with...");
 						}
 					}
 				}
