@@ -134,6 +134,9 @@ public class Garage extends Rooms {
 							Game.getController().write("I'm not sure where you see that... try moving some stuff around.");
 						}
 					}
+					else if (input.toString().contains("speakers") || input.toString().contains("bikes")) {
+						Game.getController().write("They look way too heavy too get out of here...");
+					}
 					else {
 						validItem = false;
 						Game.getController().write("What do you want to grab? Try looking around.");
